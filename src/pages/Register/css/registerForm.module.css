@@ -1,0 +1,11 @@
+.form{
+    width: 50%;
+    max-width: 330px;
+    padding: 20px;
+    margin: auto;
+}
+
+.title{
+    text-align: center;
+    margin-bottom: 20px;
+}
