@@ -1,3 +1,7 @@
+/**
+ * @fileoverview register form component
+ * @file src/pages/Register/RegisterForm.tsx
+ */
 import React, { useState } from 'react';
 import { Button, TextField, Box, Typography, Snackbar } from '@mui/material';
 import { Alert } from '@mui/material';

@@ -1,11 +1,11 @@
 // src/pages/Register.tsx
 import React from 'react';
-import RegisterForm from './Register/RegisterForm.tsx'; 
-import registerFormCss from './Register/css/registerForm.module.css';
+import RegisterForm from './register/RegisterForm.tsx'; 
+import RegisterFormCss from './register/css/register-form.module.css';
 
 const Register: React.FC = () => {
    return <>
-    <div className={registerFormCss.form}>
+    <div className={RegisterFormCss.form}>
       <RegisterForm />
     </div>
   </>
