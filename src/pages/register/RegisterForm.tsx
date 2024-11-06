@@ -6,9 +6,13 @@ import React, { useState } from 'react';
 import { Button, TextField, Box, Typography, Snackbar } from '@mui/material';
 import { Alert } from '@mui/material';
 import RegisterFormCss from './css/register-form.module.css';
+import LogButton from './LoginButton';
+import {useLoginContext} from '../../AppContext.tsx';
+import { useNavigate } from 'react-router-dom';
 
 export default function RegisterForm() {
-  const [username, setUsername] = useState('');
+  const navigate = useNavigate();
+  const [name, setname] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
@@ -16,10 +20,17 @@ export default function RegisterForm() {
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [snackbarSeverity, setSnackbarSeverity] = useState<'success' | 'error'>('success');
 
+  const {isLogged, setIsLogged, 
+    id, setId, 
+    loginTime, setLoginTime, 
+    userName, setUserName,
+    userEmail, setUserEmail, 
+   } = useLoginContext();
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (username.length < 6 || password.length < 6) {
+    if (name.length < 6 || password.length < 6) {
       setSnackbarMessage('用户名和密码必须至少6个字符长。');
       setSnackbarSeverity('error');
       setOpenSnackbar(true);
@@ -41,19 +52,33 @@ export default function RegisterForm() {
     }
 
     try {
-      const response = await fetch('http://localhost:3001/api/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, email, password })
-      });
+      // const response = await fetch('http://localhost:3001/api/register', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify({ name, email, password })
+      // });
 
-      if (response.ok) {
+      if(1){
+      // if (response.ok) {
+        // const data = await response.json();
         setSnackbarMessage('注册成功。请登录。');
         setSnackbarSeverity('success');
         setOpenSnackbar(true);
+        setIsLogged(false);
+        const currentTime = new Date().toLocaleTimeString();
+        setLoginTime(currentTime);
+        setId(1);
+        setUserName('user1');
+        setUserEmail('user1@zju.edu.cn');
+        // setId(data.id);
+        // setUserName(data.name);
+        // setUserEmail(data.email);
+        setTimeout(() => {
+          navigate('/login');
+        }, 1500);
       } else {
-        const data = await response.json();
-        setSnackbarMessage(data.message || '注册失败。');
+        // const data = await response.json();
+        // setSnackbarMessage(data.message || '注册失败。');
         setSnackbarSeverity('error');
         setOpenSnackbar(true);
       }
@@ -74,13 +99,13 @@ export default function RegisterForm() {
           margin="normal"
           required
           fullWidth
-          id="username"
+          id="name"
           label="用户名"
-          name="username"
+          name="name"
           autoComplete="username"
           autoFocus
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          value={name}
+          onChange={(e) => setname(e.target.value)}
         />
         <TextField
           margin="normal"
