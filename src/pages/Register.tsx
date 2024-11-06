@@ -1,4 +1,8 @@
-// src/pages/Register.tsx
+/**
+ * @fileoverview Register page
+ * @file src/pages/Register.tsx
+ */
+
 import React from 'react';
 import RegisterForm from './register/RegisterForm.tsx'; 
 import RegisterFormCss from './register/css/register-form.module.css';

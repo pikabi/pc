@@ -1,3 +1,87 @@
 .footer {
-    height: 1000px;
+  background-color: #3c3c3c;
+  color: #f9f9f9;
+  padding: 1rem 0;
+  align-items: center;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1rem;
+}
+
+@media (min-width: 728px) {
+  .grid {
+    grid-template-columns: 1.5fr 0.75fr 1fr;
+    gap: 4rem;
+  }
+}
+
+.about, .links, .contact {
+  margin-bottom: 1rem;
+}
+
+.about h3, .links h3, .contact h3 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.about p {
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.links ul, .contact ul {
+  list-style: none;
+  padding: 0;
+}
+
+.links li, .contact li {
+  margin-bottom: 0.5rem;
+}
+
+.links a {
+  color: #f9f9f9;
+  text-decoration: none;
+}
+
+.links a:hover {
+  text-decoration: underline;
+}
+
+.bottom {
+  padding-top: 1rem;
+  border-top: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.bottom p {
+  font-size: 0.9rem;
+}
+
+.social {
+  display: flex;
+  gap: 1rem;
+}
+
+.social a {
+  color: #333;
+}
+
+.social a:hover {
+  color: #007bff;
+}
+
+.githubIcon {
+  width: 40px;
 }

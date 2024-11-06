@@ -4,10 +4,11 @@
  */
 
 import React, { useState } from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import NavBarCss from './css/navbar.module.css';
-import LogData from '../data/LogData.tsx';
+import LogButton from './LogButton.tsx';
 import EruteShoppingIcon from '../img/erute-shopping-icon.png';
+import SearchIcon from '../img/search.svg';
 
 const NavBar: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -26,24 +27,24 @@ const NavBar: React.FC = () => {
             Erute Shopping
           </div>
         </Link>
-        <Link to="/about" className={NavBarCss.aboutUs}>
-          关于
-        </Link>
       </div>
       <div className={NavBarCss.middleSection}>
         <form onSubmit={handleSearch} className={NavBarCss.search}>
           <input
             type="text"
-            placeholder="搜索..."
+            placeholder="此处搜索商品..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className={NavBarCss.searchBar}
           />
-          <button type="submit">搜索</button>
+          <button type="submit" className={NavBarCss.searchButton}>
+            <img className={NavBarCss.searchIcon} src={SearchIcon} alt="Search Icon"/>
+            <div className={NavBarCss.searchIconToolTip}>Search</div>
+          </button>
         </form>
       </div>
       <div className={NavBarCss.rightSection}>
-        <Link to="/register">注册</Link>
+        <LogButton />
       </div>
 
       {/* <LogData /> */}

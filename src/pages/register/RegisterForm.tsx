@@ -5,11 +5,13 @@
 import React, { useState } from 'react';
 import { Button, TextField, Box, Typography, Snackbar } from '@mui/material';
 import { Alert } from '@mui/material';
+import RegisterFormCss from './css/register-form.module.css';
 
 export default function RegisterForm() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [passwordConfirm, setPasswordConfirm] = useState('');
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [snackbarSeverity, setSnackbarSeverity] = useState<'success' | 'error'>('success');
@@ -26,6 +28,13 @@ export default function RegisterForm() {
 
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       setSnackbarMessage('请输入有效的电子邮件地址。');
+      setSnackbarSeverity('error');
+      setOpenSnackbar(true);
+      return;
+    }
+
+    if (password !== passwordConfirm) {
+      setSnackbarMessage('两次输入的密码不一致。');
       setSnackbarSeverity('error');
       setOpenSnackbar(true);
       return;
@@ -57,7 +66,10 @@ export default function RegisterForm() {
 
   return (
     <div>
-      <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
+      <Box component="form" onSubmit={handleSubmit} className={RegisterFormCss.form}>
+        <Typography component="h1" variant="h4" align="center" className={RegisterFormCss.title}>
+          注册
+        </Typography>
         <TextField
           margin="normal"
           required
@@ -93,14 +105,29 @@ export default function RegisterForm() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          name="passwordConfirm"
+          label="确认密码"
+          type="password"
+          id="passwordConfirm"
+          autoComplete="current-password"
+          value={passwordConfirm}
+          onChange={(e) => setPasswordConfirm(e.target.value)}
+        />
         <Button
           type="submit"
           fullWidth
           variant="contained"
-          sx={{ mt: 3, mb: 2 }}
+          className={RegisterFormCss.button}
         >
           注册
         </Button>
+        <Typography align="center" className={RegisterFormCss.loginLink}>
+          已有账号？<a href="/login">登录</a>
+        </Typography>
         <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={() => setOpenSnackbar(false)}>
           <Alert onClose={() => setOpenSnackbar(false)} severity={snackbarSeverity} sx={{ width: '100%' }}>
             {snackbarMessage}

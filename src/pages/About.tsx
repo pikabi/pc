@@ -1,4 +1,8 @@
-// src/pages/About.tsx
+/**
+ * @fileoverview About page
+ * @file src/pages/About.tsx
+ */
+
 import React from 'react';
 
 const About: React.FC = () => {

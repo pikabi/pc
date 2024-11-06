@@ -3,11 +3,12 @@
  * @file App.js
  */
 
-import React, { useState } from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home.tsx';
 import About from './pages/About.tsx';
 import Register from './pages/Register.tsx';
+import Login from './pages/Login.tsx';
 import NavBar from './navbar/NavBar.tsx';
 import Footer from './footer/Footer.tsx';
 import '@fontsource/noto-sans-sc';
@@ -27,6 +28,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
       </div>
       <div className={AppCss.footer}>

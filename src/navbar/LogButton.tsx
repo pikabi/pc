@@ -1,21 +1,23 @@
 /**
  * @fileoverview file for information about log data
- * @file src/data/LogData.tsx
+ * @file src/data/LogButton.tsx
  */
 
 import React from 'react';
+import NavBarCss from './css/navbar.module.css';
+import { Link } from 'react-router-dom';
 
 export type LogDataProps = {
     isLogged: boolean;
     id: number;
     time: string;
     message: string;
-    logName: string;
+    userName: string;
     error: boolean;
     errorMessage: string;
   };
 
-class LogData extends React.Component<{}, LogDataProps> {
+class LogButton extends React.Component<{}, LogDataProps> {
     constructor(props: LogDataProps) {
         super(props);
         const savedLogData = localStorage.getItem('logData');
@@ -27,8 +29,8 @@ class LogData extends React.Component<{}, LogDataProps> {
                 isLogged: false,
                 id: 0,
                 time: currentTime,
-                message: '',
-                logName:'',
+                message: 'User not logged in',
+                userName:'',
                 error: false,
                 errorMessage: '',
             };
@@ -52,6 +54,11 @@ class LogData extends React.Component<{}, LogDataProps> {
         alert('登录成功');
     };
 
+    handleRegister = () => {
+      this.setState({ isLogged: true});
+      alert('登录成功');
+    };
+
     handleLogout = () => {
       this.setState({ isLogged: false});
       alert('退出成功');
@@ -59,35 +66,33 @@ class LogData extends React.Component<{}, LogDataProps> {
 
     render() {
       const { isLogged } = this.state;
-      return <div>
+      return <div className={NavBarCss.rightSectionItems}>
         <div>
           {isLogged ? (
-            <button onClick={this.handleLogout} style={{ marginLeft: '20px' }}>
+            <div onClick={this.handleLogout} className={NavBarCss.welcome}>
               欢迎回来
-            </button>
+            </div>
           ) : (
-            <div>
-              <button onClick={this.handleLogin} style={{ marginLeft: '20px' }}>
-                登录
-              </button>
+            <div className={NavBarCss.notLogged}>
+              <div onClick={this.handleLogin} className={NavBarCss.login}>
+              <Link to="/login"> 登录 </Link>
+              </div>
+              <div onClick={this.handleRegister} className={NavBarCss.register}>
+                <Link to="/register"> 注册 </Link>
+              </div>
             </div>
           )}
         </div>
         <div>
-          <h2>日志信息</h2>
-          <div>
-            <div>是否登录: {isLogged ? '是' : '否'}</div>
-            <div>日志ID: {this.state.id}</div>
-            <div>时间: {this.state.time}</div>
-            <div>消息: {this.state.message}</div>
-            <div>日志名称: {this.state.logName}</div>
-            <div>是否错误: {this.state.error ? '是' : '否'}</div>
-            <div>错误消息: {this.state.errorMessage}</div>
-          </div>
+          {isLogged ? (
+            <img src="https://img.icons8.com/ios/50/000000/user" className={NavBarCss.userIcon} alt="User Icon" />
+          ) : (
+            <img src="https://img.icons8.com/ios/50/000000/user" className={NavBarCss.userIcon} alt="User Icon" />
+          )}
         </div>
       </div>;
     }
 
 }
 
-export default LogData;
+export default LogButton;
