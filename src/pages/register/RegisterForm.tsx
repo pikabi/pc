@@ -6,7 +6,6 @@ import React, { useState } from 'react';
 import { Button, TextField, Box, Typography, Snackbar } from '@mui/material';
 import { Alert } from '@mui/material';
 import RegisterFormCss from './css/register-form.module.css';
-import LogButton from './LoginButton';
 import {useLoginContext} from '../../AppContext.tsx';
 import { useNavigate } from 'react-router-dom';
 
