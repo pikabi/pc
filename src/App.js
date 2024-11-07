@@ -9,6 +9,8 @@ import Home from './pages/Home.tsx';
 import About from './pages/About.tsx';
 import Register from './pages/Register.tsx';
 import Login from './pages/Login.tsx';
+import User from './pages/User.tsx'
+import Shoppingcart from './pages/ShoppingCart.tsx'
 import NavBar from './navbar/NavBar.tsx';
 import Footer from './footer/Footer.tsx';
 import '@fontsource/noto-sans-sc';
@@ -32,6 +34,8 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/user" element={<User />} />
+            <Route path="/shoppingcart" element={<Shoppingcart />} />
           </Routes>
         </div>
         <div className={AppCss.footer}>

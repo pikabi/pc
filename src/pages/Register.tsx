@@ -4,8 +4,8 @@
  */
 
 import React from 'react';
-import RegisterForm from './register/RegisterForm.tsx'; 
-import RegisterFormCss from './register/css/register-form.module.css';
+import RegisterForm from './register/registerForm.tsx'; 
+import RegisterFormCss from './css/register-form.module.css';
 
 const Register: React.FC = () => {
    return <>

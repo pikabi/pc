@@ -108,6 +108,10 @@
   position: relative;
 }
 
+.searchButton:hover {
+  cursor: pointer;
+}
+
 .searchIconToolTip {
   position: absolute;
   background-color: gray;
@@ -117,7 +121,7 @@
   padding-left: 8px;
   padding-right: 8px;
   border-radius: 2px;
-  font-size: 12px;
+  font-size: 16px;
   bottom: -30px;
   opacity: 0;
   transition: opacity 0.15s;
@@ -147,7 +151,9 @@
   justify-content: space-between;
 }
 
-.notLogged {
+
+.notLogged, 
+.logged {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -155,23 +161,58 @@
 }
 
 .register,
-.login,
-.welcome{
+.login{
   display: flex;
   align-items: center;
-  margin-right: 15px;
+  margin-right: 25px;
+  margin-top: 6px;
+}
+
+.text {
+  color: #000000;
+  text-decoration: none;
+  font-size: 20px;
 }
 
 .register:hover,
-.login:hover,
-.welcome:hover
+.login:hover
  {
   cursor: pointer;
+}
+
+.iconButton {
+  height: 34px;
+  width: 34px;
+  background-color: #ffffff;
+  border-radius: 25px;
+  border-color: #ffffff;
+  border-style: hidden;
+  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08); */
+  transition: background-color 0.3s ease, color 0.3s ease;
+  margin-right: 25px;
+  margin-top: 6px;
+}
+
+.iconButton:hover {
+  cursor: pointer;
+  background-color: #f9fafb;
+}
+
+.shoppingCartIcon {
+  height: 34px;
+  width: 34px;
+  color: #4a5568;
 }
 
 .userIcon {
   height: 34px;
   width: 34px;
-  margin-right: 10px;
-  border-radius: 16px;
+  color: #4a5568;
+}
+
+.userImg {
+  height: 46px;
+  width: 46px;
+  margin-right: 20px;
+  border-radius: 23px;
 }

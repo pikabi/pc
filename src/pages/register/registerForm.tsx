@@ -1,12 +1,11 @@
 /**
  * @fileoverview register form component
- * @file src/pages/Register/RegisterForm.tsx
+ * @file src/pages/Register/registerForm.tsx
  */
 import React, { useState } from 'react';
 import { Button, TextField, Box, Typography, Snackbar } from '@mui/material';
 import { Alert } from '@mui/material';
-import RegisterFormCss from './css/register-form.module.css';
-import {useLoginContext} from '../../AppContext.tsx';
+import RegisterFormCss from '../css/register-form.module.css';
 import { useNavigate } from 'react-router-dom';
 
 export default function RegisterForm() {
@@ -18,13 +17,6 @@ export default function RegisterForm() {
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [snackbarSeverity, setSnackbarSeverity] = useState<'success' | 'error'>('success');
-
-  const {isLogged, setIsLogged, 
-    id, setId, 
-    loginTime, setLoginTime, 
-    userName, setUserName,
-    userEmail, setUserEmail, 
-   } = useLoginContext();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -50,37 +42,43 @@ export default function RegisterForm() {
       return;
     }
 
-    try {
-      // const response = await fetch('http://localhost:3001/api/register', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({ name, email, password })
-      // });
+    // make a POST request to the server
+    // try {
+    //   const response = await fetch('http://localhost:3001/api/register', {
+    //     method: 'POST',
+    //     headers: { 'Content-Type': 'application/json' },
+    //     body: JSON.stringify({ name, email, password })
+    //   });
 
-      if(1){
-      // if (response.ok) {
-        // const data = await response.json();
-        setSnackbarMessage('注册成功。请登录。');
-        setSnackbarSeverity('success');
-        setOpenSnackbar(true);
-        setIsLogged(false);
-        const currentTime = new Date().toLocaleTimeString();
-        setLoginTime(currentTime);
-        setId(1);
-        setUserName('user1');
-        setUserEmail('user1@zju.edu.cn');
-        // setId(data.id);
-        // setUserName(data.name);
-        // setUserEmail(data.email);
-        setTimeout(() => {
-          navigate('/login');
-        }, 1500);
-      } else {
-        // const data = await response.json();
-        // setSnackbarMessage(data.message || '注册失败。');
-        setSnackbarSeverity('error');
-        setOpenSnackbar(true);
-      }
+    //   if (response.ok) {
+    //     const data = await response.json();
+    //     setSnackbarMessage('注册成功。请登录。');
+    //     setSnackbarSeverity('success');
+    //     setOpenSnackbar(true);
+    //     setTimeout(() => {
+    //       navigate('/login');
+    //     }, 1500);
+    //   } else {
+    //     const data = await response.json();
+    //     setSnackbarMessage(data.message || '注册失败。');
+    //     setSnackbarSeverity('error');
+    //     setOpenSnackbar(true);
+    //   }
+    // } catch (error) {
+    //   setSnackbarMessage('发生意外错误。请重试。');
+    //   setSnackbarSeverity('error');
+    //   setOpenSnackbar(true);
+    // }
+    
+
+    // for test, no request to server
+    try {
+      setSnackbarMessage('注册成功。请登录。');
+      setSnackbarSeverity('success');
+      setOpenSnackbar(true);
+      setTimeout(() => {
+        navigate('/login');
+      }, 1500);
     } catch (error) {
       setSnackbarMessage('发生意外错误。请重试。');
       setSnackbarSeverity('error');

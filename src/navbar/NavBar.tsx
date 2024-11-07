@@ -47,9 +47,6 @@ const NavBar: React.FC = () => {
         <LogButton />
       </div>
 
-      {/* <LogData /> */}
-
-
     </div>
   );
 };

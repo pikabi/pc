@@ -5,7 +5,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button, TextField, Box, Typography, Snackbar } from '@mui/material';
 import { Alert } from '@mui/material';
-import LoginFormCss from './css/login-form.module.css';
+import LoginFormCss from '../css/login-form.module.css';
 import {useLoginContext} from '../../AppContext.tsx';
 import { useNavigate } from 'react-router-dom';
 
@@ -24,6 +24,9 @@ export default function LoginForm() {
     loginTime, setLoginTime, 
     userName, setUserName,
     userEmail, setUserEmail, 
+    userPhone, setUserPhone,
+    userCountry, setUserCountry,
+    userAddress, setUserAddress,
    } = useLoginContext();
 
   function loginDidUpdate() {
@@ -32,62 +35,85 @@ export default function LoginForm() {
       id,
       loginTime,
       userName,
-      userEmail,
-    }
+      userPhone,
+      userCountry,
+      userAddress
+    };
+
     localStorage.setItem('loginData', JSON.stringify(state));
   }    
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // if (nameOrEmail.length < 6 || password.length < 6) {
-    //   setSnackbarMessage('用户名/邮箱和密码必须至少6个字符长。');
+    if (nameOrEmail.length < 6 || password.length < 6) {
+      setSnackbarMessage('用户名/邮箱和密码必须至少6个字符长。');
+      setSnackbarSeverity('error');
+      setOpenSnackbar(true);
+      return;
+    }
+
+    // 判断 nameOrEmail 是用户名还是邮箱
+    // 如果是用户名，设置 name
+    // 如果是邮箱，设置 email
+    if (nameOrEmail.includes('@')) {
+      setEmail(nameOrEmail);
+    } else {
+      setName(nameOrEmail);
+    }
+
+    // make a POST request to the server
+    // try {
+    //   const response = await fetch('http://localhost:3001/api/login', {
+    //     method: 'POST',
+    //     headers: { 'Content-Type': 'application/json' },
+    //     body: JSON.stringify({ name, email, password })
+    //   });
+
+    //   if (response.ok) {
+    //     const data = await response.json();
+    //     setSnackbarMessage('登录成功！');
+    //     setSnackbarSeverity('success');
+    //     setOpenSnackbar(true);
+    //     setIsLogged(true);
+    //     const currentTime = new Date().toLocaleString();
+    //     setLoginTime(currentTime);
+    //     setId(data.id);
+    //     setUserName(data.name);
+    //     setUserEmail(data.email);
+    //     setUserPhone(data.phone);
+    //     setUserCountry(data.country);
+    //     setUserAddress(data.address);
+    //     setTimeout(() => {
+    //       navigate('/');
+    //     }, 1500);
+    //   } else {
+    //     const data = await response.json();
+    //     setSnackbarMessage(data.message || '登录失败。');
+    //     setSnackbarSeverity('error');
+    //     setOpenSnackbar(true);
+    //   }
+    // } catch (error) {
+    //   setSnackbarMessage('发生意外错误。请重试。');
     //   setSnackbarSeverity('error');
     //   setOpenSnackbar(true);
-    //   return;
     // }
 
-    // // 判断 nameOrEmail 是用户名还是邮箱
-    // // 如果是用户名，设置 name
-    // // 如果是邮箱，设置 email
-    // if (nameOrEmail.includes('@')) {
-    //   setEmail(nameOrEmail);
-    // } else {
-    //   setName(nameOrEmail);
-    // }
-
+    // for test, no request to server
     try {
-      // const response = await fetch('http://localhost:3001/api/login', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({ name, email, password })
-      // });
-
-      if(1){
-      // if (response.ok) {
-      //   const data = await response.json();
-        setSnackbarMessage('登录成功！');
-        setSnackbarSeverity('success');
-        setOpenSnackbar(true);
-        setIsLogged(true);
-        const currentTime = new Date().toLocaleTimeString();
-        setLoginTime(currentTime);
-        setId(1);
-        setUserName('user1');
-        setUserEmail('user1@zju.edu.cn');
-        loginDidUpdate();
-        // setId(data.id);
-        // setUserName(data.name);
-        // setUserEmail(data.email);
-        setTimeout(() => {
-          navigate('/');
-        }, 1500);
-      } else {
-        // const data = await response.json();
-        // setSnackbarMessage(data.message || '登录失败。');
-        setSnackbarSeverity('error');
-        setOpenSnackbar(true);
-      }
+      setSnackbarMessage('登录成功！');
+      setSnackbarSeverity('success');
+      setOpenSnackbar(true);
+      setIsLogged(true);
+      const currentTime = new Date().toLocaleString();
+      setLoginTime(currentTime);
+      setId(1);
+      setUserName('user1');
+      setUserEmail('user1@zju.edu.cn');
+      // loginDidUpdate();
+      setTimeout(() => {
+        navigate('/');
+      }, 1500);
     } catch (error) {
       setSnackbarMessage('发生意外错误。请重试。');
       setSnackbarSeverity('error');

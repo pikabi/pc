@@ -6,38 +6,45 @@
 import React, { useContext } from 'react';
 import NavBarCss from './css/navbar.module.css';
 import { Link } from 'react-router-dom';
-import {useLoginContext} from '../AppContext.tsx';
+import { useLoginContext } from '../AppContext.tsx';
+import { ShoppingCart, User} from 'lucide-react';
+import UserImg from "../img/user-img.jpg";
+import UserDefaultImg from "../img/user-default-img.png";
 
 
 export default function LogButton(){
-  const {isLogged, setIsLogged, 
-    id, setId, 
-    loginTime, setLoginTime, 
-    userName, setUserName,
-    userEmail, setUserEmail
-   } = useLoginContext();
+  const {isLogged} = useLoginContext();
   return <div className={NavBarCss.rightSectionItems}>
     <div>
       {isLogged ? (
-        <div className={NavBarCss.welcome}>
-          欢迎回来
+        <div className={NavBarCss.logged}>
+          <Link to='/shoppingcart'>
+            <button className={NavBarCss.iconButton}>
+              <ShoppingCart className={NavBarCss.shoppingCartIcon} />
+            </button>
+          </Link>
+          <Link to="/user">
+            <button className={NavBarCss.iconButton}>
+              <User className={NavBarCss.userIcon} />
+            </button>
+          </Link>
         </div>
       ) : (
         <div className={NavBarCss.notLogged}>
           <div className={NavBarCss.login}>
-          <Link to="/login"> 登录 </Link>
+          <Link to="/login" className={NavBarCss.text}> 登录 </Link>
           </div>
           <div className={NavBarCss.register}>
-            <Link to="/register"> 注册 </Link>
+            <Link to="/register" className={NavBarCss.text}> 注册 </Link>
           </div>
         </div>
       )}
     </div>
     <div>
       {isLogged ? (
-        <img src="https://img.icons8.com/ios/50/000000/user" className={NavBarCss.userIcon} alt="User Icon" />
+        <img src={UserImg} className={NavBarCss.userImg} alt="User Icon" />
       ) : (
-        <img src="https://img.icons8.com/ios/50/000000/user" className={NavBarCss.userIcon} alt="User Icon" />
+        <img src={UserDefaultImg} className={NavBarCss.userImg} alt="User Icon" />
       )}
     </div>
   </div>;
@@ -47,7 +54,7 @@ export default function LogButton(){
 //     constructor(props: LogDataProps) {
 //         super(props);
 //         const savedLogData = localStorage.getItem('logData');
-//         const currentTime = new Date().toLocaleTimeString();
+//         const currentTime = new Date().toLocaleString();
 //         if (savedLogData) {
 //             this.state = JSON.parse(savedLogData);
 //         } else {
