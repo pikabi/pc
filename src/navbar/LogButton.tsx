@@ -7,7 +7,7 @@ import React, { useContext } from 'react';
 import NavBarCss from './css/navbar.module.css';
 import { Link } from 'react-router-dom';
 import { useLoginContext } from '../AppContext.tsx';
-import { ShoppingCart, User, Bell, Heart} from 'lucide-react';
+import { Scale, User, Bell, Heart} from 'lucide-react';
 import UserIconButton from './UserIconButton.tsx';
 
 
@@ -29,10 +29,10 @@ export default function LogButton(){
               <div className={NavBarCss.favouriteIconToolTip}>我的关注</div>
             </button>
           </Link>
-          <Link to='/shoppingcart'>
-            <button className={NavBarCss.shoppingCartIconButton}>
-              <ShoppingCart className={NavBarCss.shoppingCartIcon} />
-              <div className={NavBarCss.shoppingCartIconToolTip}>购物车</div>
+          <Link to='/scale'>
+            <button className={NavBarCss.scaleIconButton}>
+              <Scale className={NavBarCss.scaleIcon} />
+              <div className={NavBarCss.scaleIconToolTip}>商品比较</div>
             </button>
           </Link>
           <Link to="/user">

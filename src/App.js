@@ -10,7 +10,7 @@ import About from './pages/About.tsx';
 import Register from './pages/Register.tsx';
 import Login from './pages/Login.tsx';
 import User from './pages/User.tsx'
-import Shoppingcart from './pages/ShoppingCart.tsx'
+import Scale from './pages/Scale.tsx'
 import Favourite from './pages/Favourite.tsx'
 import Message from './pages/Message.tsx';
 import Search from './pages/Search.tsx';
@@ -42,7 +42,7 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
             <Route path="/user" element={<User />} />
-            <Route path="/shoppingcart" element={<Shoppingcart />} />
+            <Route path="/scale" element={<Scale />} />
             <Route path="/favourite" element={<Favourite />} />
             <Route path="/message" element={<Message />} />
             <Route path="/search" element={<Search />} />

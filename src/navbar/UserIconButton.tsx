@@ -5,7 +5,7 @@ import UserDefaultImg from "../img/user-default-img.png";
 import NavBarCss from './css/navbar.module.css';
 import { useLoginContext } from '../AppContext.tsx';
 import { useNavigate } from 'react-router-dom';
-import {LogOut, Home, User, ShoppingCart} from 'lucide-react'
+import {LogOut, Home, User, Scale, Bell, Heart} from 'lucide-react'
 
 
 export default function UserIconButton(){
@@ -32,9 +32,19 @@ export default function UserIconButton(){
     navigate('/user');
   }
 
-  const handleNavToCart = () => {
+  const handleNavToMessage = () => {
     setAnchorEl(null);
-    navigate('/shoppingcart');
+    navigate('/message');
+  }
+
+  const handleNavToFavourite = () => {
+    setAnchorEl(null);
+    navigate('/favourite');
+  }
+
+  const handleNavToScale = () => {
+    setAnchorEl(null);
+    navigate('/scale');
   }
 
   const handleLogOut = () => {
@@ -67,7 +77,7 @@ export default function UserIconButton(){
           <MenuItem onClick={handleNavToHome} className={NavBarCss.NormalButton}>
             <Home className={NavBarCss.NormalIcon} />
               <div className={NavBarCss.menuText}>
-                登录
+                主页
               </div>
           </MenuItem>
           <MenuItem onClick={handleNavToUser} className={NavBarCss.NormalButton}>
@@ -76,10 +86,22 @@ export default function UserIconButton(){
                 用户
               </div>
           </MenuItem>
-          <MenuItem onClick={handleNavToCart} className={NavBarCss.NormalButton}>
-            <ShoppingCart className={NavBarCss.NormalIcon} />
+          <MenuItem onClick={handleNavToMessage} className={NavBarCss.NormalButton}>
+            <Bell className={NavBarCss.NormalIcon} />
               <div className={NavBarCss.menuText}>
-                购物车
+                消息
+              </div>
+          </MenuItem>
+          <MenuItem onClick={handleNavToFavourite} className={NavBarCss.NormalButton}>
+            <Heart className={NavBarCss.NormalIcon} />
+              <div className={NavBarCss.menuText}>
+                关注
+              </div>
+          </MenuItem>
+          <MenuItem onClick={handleNavToScale} className={NavBarCss.NormalButton}>
+            <Scale className={NavBarCss.NormalIcon} />
+              <div className={NavBarCss.menuText}>
+                商品比较
               </div>
           </MenuItem>
           <MenuItem onClick={handleLogOut} className={NavBarCss.signOutButton}>

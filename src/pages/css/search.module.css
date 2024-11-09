@@ -9,7 +9,7 @@
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 2rem 1rem;
 }
@@ -127,7 +127,7 @@
 
 .productInfo {
   color: inherit;
-  height: 100px;
+  height: 120px;
   padding: 16px;
 }
 
@@ -163,6 +163,29 @@
   color: #6b7280;
 }
 
+.productBrandLocation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+  margin-bottom: 4px;
+}
+
+.productBrand,
+.productLocation {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.productBrand {
+  font-weight: bold;
+}
+
+.productLocation {
+  font-style: italic;
+}
+
+
 .productRatingFavorite {
   display: flex;
   justify-content: space-between;
@@ -187,14 +210,22 @@
   color: #4b5563;
 }
 
-.favoriteButton {
+.productIconBox {
+  display: flex;
+  gap: 10px;
+  margin-left: 5px;
+}
+
+.favoriteButton,
+.scaleButton {
   background: none;
   border: none;
   cursor: pointer;
   padding: 0;
 }
 
-.heartIcon {
+.heartIcon,
+.scaleIcon {
   height: 18px;
   width: 18px;
   color: #9ca3af;
@@ -203,4 +234,42 @@
 
 .heartIcon:hover {
   color: #ef4444;
+}
+
+.scaleIcon:hover {
+  color: #282c34;
+}
+
+.heartIconToolTip,
+.scaleIconToolTip {
+  position: absolute;
+  background-color: gray;
+  color: white;
+  padding-top: 0px;
+  padding-bottom: 4px;
+  padding-left: 8px;
+  padding-right: 8px;
+  border-radius: 6px;
+  font-size: 16px;
+  opacity: 0;
+  z-index: 100;
+  transition: opacity 0.15s;
+  pointer-events: none;
+  white-space: nowrap;
+  margin-left: -30px;
+}
+
+.favoriteButton:hover .heartIconToolTip,
+.scaleButton:hover .scaleIconToolTip {
+  opacity: 1;
+}
+
+.heartIconFilled {
+  color: #ef4444;
+  fill: #ef4444;
+}
+
+.scaleIconFilled {
+  color: #282c34;
+  fill: #282c34;
 }

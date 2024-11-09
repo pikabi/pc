@@ -124,7 +124,7 @@
 .searchIconToolTip,
 .messageIconToolTip,
 .favouriteIconToolTip,
-.shoppingCartIconToolTip,
+.scaleIconToolTip,
 .userIconToolTip {
   position: absolute;
   background-color: gray;
@@ -144,16 +144,17 @@
 }
 
 .messageIconToolTip {
-  margin-left: -12px;
+  margin-left: -8px;
   margin-bottom: 11.5px;
 }
 
+.scaleIconToolTip,
 .favouriteIconToolTip {
-  margin-left: -28px;
+  margin-left: -22px;
   margin-bottom: 11.5px;
 }
 
-.shoppingCartIconToolTip,
+
 .userIconToolTip {
   margin-left: -6px;
   margin-bottom: 11.5px;
@@ -162,7 +163,7 @@
 .searchButton:hover .searchIconToolTip,
 .messageIconButton:hover .messageIconToolTip,
 .favouriteIconButton:hover .favouriteIconToolTip,
-.shoppingCartIconButton:hover .shoppingCartIconToolTip,
+.scaleIconButton:hover .scaleIconToolTip,
 .userIconButton:hover .userIconToolTip {
   opacity: 1;
 }
@@ -196,6 +197,14 @@
   align-items: center;
 }
 
+@media (max-width: 728px) {
+  .notLogged, 
+  .logged {
+    width: 0;
+    opacity: 0;
+  }
+}
+
 .register,
 .login{
   display: flex;
@@ -218,7 +227,7 @@
 
 .messageIconButton,
 .favouriteIconButton,
-.shoppingCartIconButton,
+.scaleIconButton,
 .userIconButton {
   height: 34px;
   width: 34px;
@@ -234,7 +243,7 @@
 
 .messageIconButton:hover,
 .favouriteIconButton:hover,
-.shoppingCartIconButton:hover,
+.scaleIconButton:hover,
 .userIconButton:hover {
   cursor: pointer;
   background-color: #f9fafb;
@@ -242,7 +251,7 @@
 
 .messageIcon,
 .favouriteIcon,
-.shoppingCartIcon,
+.scaleIcon,
 .userIcon {
   height: 32px;
   width: 32px;
