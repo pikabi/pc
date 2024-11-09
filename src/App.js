@@ -3,7 +3,7 @@
  * @file App.js
  */
 
-import React, { createContext } from 'react';
+import React, { createContext, useEffect} from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home.tsx';
 import About from './pages/About.tsx';
@@ -11,6 +11,10 @@ import Register from './pages/Register.tsx';
 import Login from './pages/Login.tsx';
 import User from './pages/User.tsx'
 import Shoppingcart from './pages/ShoppingCart.tsx'
+import Favourite from './pages/Favourite.tsx'
+import Message from './pages/Message.tsx';
+import Search from './pages/Search.tsx';
+import Product from './pages/Product.tsx';
 import NavBar from './navbar/NavBar.tsx';
 import Footer from './footer/Footer.tsx';
 import '@fontsource/noto-sans-sc';
@@ -21,6 +25,9 @@ import AppCss from './App.module.css';
 const LoginContext = createContext();
 
 function App() {
+  useEffect(() => {
+    document.title = "Erute Shopping";
+  }, []);
   return (
     <LoginContextProvider>
       <div className={AppCss.body}>
@@ -36,6 +43,10 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/user" element={<User />} />
             <Route path="/shoppingcart" element={<Shoppingcart />} />
+            <Route path="/favourite" element={<Favourite />} />
+            <Route path="/message" element={<Message />} />
+            <Route path="/search" element={<Search />} />
+            <Route path="/product" element={<Product />} />
           </Routes>
         </div>
         <div className={AppCss.footer}>

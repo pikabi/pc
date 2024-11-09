@@ -1,5 +1,9 @@
 import React, { createContext, useState, useContext, ReactNode, useEffect } from 'react';
 
+/**
+ * @LoginContext
+ */
+
 const LoginContext = createContext({
   isLogged: false,
   setIsLogged: (value: boolean) => {},
@@ -80,4 +84,50 @@ export const LoginContextProvider: React.FC<{ children: ReactNode }> = ({ childr
 
 export function useLoginContext() {
   return useContext(LoginContext);
+}
+
+
+
+
+/**
+ * @NotificationContext
+ */
+
+const NotificationContext = createContext({
+
+});
+
+function getInitialNotificationState() {
+  const savedNotaData = localStorage.getItem('notificationData');
+  if (savedNotaData) {
+    return JSON.parse(savedNotaData);
+  } else {
+    return {
+      
+    };
+  }
+}
+
+export const NotificationContextProvider: React.FC<{ children: ReactNode }> = ({ children })=> {
+  
+
+  const state = {
+    
+  };
+
+  useEffect(() => {
+    localStorage.setItem('notificationData', JSON.stringify(state));
+  }, [state]);
+
+  return (
+    <NotificationContext.Provider value={{
+      
+    }}>
+      {children}
+    </NotificationContext.Provider>
+  )
+}
+
+export function useNotificationContext() {
+  return useContext(NotificationContext);
 }

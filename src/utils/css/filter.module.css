@@ -1,0 +1,67 @@
+/* filter.module.css */
+.filter {
+  display: flex;
+  gap: 10px;
+  font-size: 18px;
+}
+
+.filterContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.row {
+  display: flex;
+  gap: 18px;
+}
+
+.filterBox {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.filterBox label {
+  margin-right: 6px;
+  color: #4b5563;
+}
+
+.filterBox input {
+  width: 48px;
+  padding: 6px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  outline: none;
+  text-align: center;
+}
+
+.filterBox span {
+  margin: 0 10px;
+  color: #6b7280;
+}
+
+
+.filterBoxLong {
+  display: flex;
+  align-items: center;
+}
+
+.filterBoxLong label {
+  margin-right: 6px;
+  color: #4b5563;
+}
+
+.filterBoxLong input {
+  width: 120px;
+  padding: 6px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  outline: none;
+  text-align: center;
+}
+
+.filterBoxLong span {
+  margin: 0 10px;
+  color: #6b7280;
+}

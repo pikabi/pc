@@ -7,9 +7,8 @@ import React, { useContext } from 'react';
 import NavBarCss from './css/navbar.module.css';
 import { Link } from 'react-router-dom';
 import { useLoginContext } from '../AppContext.tsx';
-import { ShoppingCart, User} from 'lucide-react';
-import UserImg from "../img/user-img.jpg";
-import UserDefaultImg from "../img/user-default-img.png";
+import { ShoppingCart, User, Bell, Heart} from 'lucide-react';
+import UserIconButton from './UserIconButton.tsx';
 
 
 export default function LogButton(){
@@ -18,14 +17,28 @@ export default function LogButton(){
     <div>
       {isLogged ? (
         <div className={NavBarCss.logged}>
+          <Link to='/message'>
+            <button className={NavBarCss.messageIconButton}>
+              <Bell className={NavBarCss.messageIcon} />
+              <div className={NavBarCss.messageIconToolTip}>消息</div>
+            </button>
+          </Link>
+          <Link to='/favourite'>
+            <button className={NavBarCss.favouriteIconButton}>
+              <Heart className={NavBarCss.favouriteIcon} />
+              <div className={NavBarCss.favouriteIconToolTip}>我的关注</div>
+            </button>
+          </Link>
           <Link to='/shoppingcart'>
-            <button className={NavBarCss.iconButton}>
+            <button className={NavBarCss.shoppingCartIconButton}>
               <ShoppingCart className={NavBarCss.shoppingCartIcon} />
+              <div className={NavBarCss.shoppingCartIconToolTip}>购物车</div>
             </button>
           </Link>
           <Link to="/user">
-            <button className={NavBarCss.iconButton}>
+            <button className={NavBarCss.userIconButton}>
               <User className={NavBarCss.userIcon} />
+              <div className={NavBarCss.userIconToolTip}>用户</div>
             </button>
           </Link>
         </div>
@@ -41,89 +54,7 @@ export default function LogButton(){
       )}
     </div>
     <div>
-      {isLogged ? (
-        <img src={UserImg} className={NavBarCss.userImg} alt="User Icon" />
-      ) : (
-        <img src={UserDefaultImg} className={NavBarCss.userImg} alt="User Icon" />
-      )}
+      <UserIconButton />
     </div>
   </div>;
 };
-
-// class LogButton extends React.Component<{}, LogDataProps> {
-//     constructor(props: LogDataProps) {
-//         super(props);
-//         const savedLogData = localStorage.getItem('logData');
-//         const currentTime = new Date().toLocaleString();
-//         if (savedLogData) {
-//             this.state = JSON.parse(savedLogData);
-//         } else {
-//             this.state = {
-//                 isLogged: false,
-//                 id: 0,
-//                 time: currentTime,
-//                 message: 'User not logged in',
-//                 userName:'',
-//                 error: false,
-//                 errorMessage: '',
-//             };
-//         };
-        
-//     }
-
-//     componentDidMount() {
-//       // 可用于加载时初始化操作
-//       console.log('LogData component mounted.');
-//     }
-
-//     componentDidUpdate(prevState: LogDataProps) {
-//       if (prevState !== this.state) {
-//           localStorage.setItem('logData', JSON.stringify(this.state));
-//       }
-//     }    
-
-//     handleLogin = () => {
-//         this.setState({ isLogged: true});
-//         alert('登录成功');
-//     };
-
-//     handleRegister = () => {
-//       this.setState({ isLogged: true});
-//       alert('登录成功');
-//     };
-
-//     handleLogout = () => {
-//       this.setState({ isLogged: false});
-//       alert('退出成功');
-//     };
-
-//     render() {
-//       const { isLogged } = this.state;
-//       return <div className={NavBarCss.rightSectionItems}>
-//         <div>
-//           {isLogged ? (
-//             <div onClick={this.handleLogout} className={NavBarCss.welcome}>
-//               欢迎回来
-//             </div>
-//           ) : (
-//             <div className={NavBarCss.notLogged}>
-//               <div onClick={this.handleLogin} className={NavBarCss.login}>
-//               <Link to="/login"> 登录 </Link>
-//               </div>
-//               <div onClick={this.handleRegister} className={NavBarCss.register}>
-//                 <Link to="/register"> 注册 </Link>
-//               </div>
-//             </div>
-//           )}
-//         </div>
-//         <div>
-//           {isLogged ? (
-//             <img src="https://img.icons8.com/ios/50/000000/user" className={NavBarCss.userIcon} alt="User Icon" />
-//           ) : (
-//             <img src="https://img.icons8.com/ios/50/000000/user" className={NavBarCss.userIcon} alt="User Icon" />
-//           )}
-//         </div>
-//       </div>;
-//     }
-
-// }

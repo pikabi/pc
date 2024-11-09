@@ -26,12 +26,13 @@
 */
 .leftSection {
   display: flex;
+  flex:1;
   align-items: center;
-  min-width: 250px;
+  /* min-width: 250px; */
   overflow: hidden; 
   text-decoration: none;
   color: inherit;
-  margin-right: 50px;
+  margin-right: 20px;
 }
   
 .eruteShopping{
@@ -52,9 +53,17 @@
   font-size: 36px;
   font-weight: bold;
   margin-left: 10px;
-  min-width: 200px;
+  opacity: 1;
+  /* min-width: 200px; */
   text-decoration: none;
   font-family: 'Dancing Script', cursive;
+}
+
+@media screen and (max-width: 1000px) {
+  .eruteShoppingFont {
+    max-width: 0px;
+    opacity: 0;
+  }
 }
 
 
@@ -62,9 +71,9 @@
   display: flex;
   align-items: center;
   flex: 1;
-  margin-left: 20px;
+  margin-left: 30px;
   margin-right: 20px;
-  max-width: 800px;
+  max-width: 900px;
 }
 
 .search {
@@ -89,7 +98,7 @@
   border-radius: 8px;
   box-shadow: inset 1px 2px 3px rgba(0, 0, 0, 0.05);
   width: 0;
-  max-width: 500px;
+  max-width: 600px;
 }
 
 .searchButton {
@@ -112,11 +121,15 @@
   cursor: pointer;
 }
 
-.searchIconToolTip {
+.searchIconToolTip,
+.messageIconToolTip,
+.favouriteIconToolTip,
+.shoppingCartIconToolTip,
+.userIconToolTip {
   position: absolute;
   background-color: gray;
   color: white;
-  padding-top: 4px;
+  padding-top: 0px;
   padding-bottom: 4px;
   padding-left: 8px;
   padding-right: 8px;
@@ -124,12 +137,33 @@
   font-size: 16px;
   bottom: -30px;
   opacity: 0;
+  z-index: 100;
   transition: opacity 0.15s;
   pointer-events: none;
   white-space: nowrap;
 }
 
-.searchButton:hover .searchIconToolTip{
+.messageIconToolTip {
+  margin-left: -12px;
+  margin-bottom: 11.5px;
+}
+
+.favouriteIconToolTip {
+  margin-left: -28px;
+  margin-bottom: 11.5px;
+}
+
+.shoppingCartIconToolTip,
+.userIconToolTip {
+  margin-left: -6px;
+  margin-bottom: 11.5px;
+}
+
+.searchButton:hover .searchIconToolTip,
+.messageIconButton:hover .messageIconToolTip,
+.favouriteIconButton:hover .favouriteIconToolTip,
+.shoppingCartIconButton:hover .shoppingCartIconToolTip,
+.userIconButton:hover .userIconToolTip {
   opacity: 1;
 }
 
@@ -139,7 +173,9 @@
 
 .rightSection {
   display: flex;
+  flex:1;
   align-items: center;
+  justify-content: flex-end;
   margin-right: 20px;
   margin-top: 10px;
   font-size: 20px;
@@ -164,7 +200,7 @@
 .login{
   display: flex;
   align-items: center;
-  margin-right: 25px;
+  margin-right: 30px;
   margin-top: 6px;
 }
 
@@ -180,7 +216,10 @@
   cursor: pointer;
 }
 
-.iconButton {
+.messageIconButton,
+.favouriteIconButton,
+.shoppingCartIconButton,
+.userIconButton {
   height: 34px;
   width: 34px;
   background-color: #ffffff;
@@ -189,30 +228,94 @@
   border-style: hidden;
   /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08); */
   transition: background-color 0.3s ease, color 0.3s ease;
-  margin-right: 25px;
-  margin-top: 6px;
+  margin-right: 30px;
+  margin-top: 8px;
 }
 
-.iconButton:hover {
+.messageIconButton:hover,
+.favouriteIconButton:hover,
+.shoppingCartIconButton:hover,
+.userIconButton:hover {
   cursor: pointer;
   background-color: #f9fafb;
 }
 
-.shoppingCartIcon {
-  height: 34px;
-  width: 34px;
-  color: #4a5568;
-}
-
+.messageIcon,
+.favouriteIcon,
+.shoppingCartIcon,
 .userIcon {
-  height: 34px;
-  width: 34px;
+  height: 32px;
+  width: 32px;
   color: #4a5568;
 }
 
-.userImg {
+.imgAll {
+  margin-left: 5px;
+  margin-right: 25px;
+}
+
+
+.userImgBox {
+  height: 56px;
+  width: 56px;
+  padding-left: 6px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.userImg,
+.userDefaultImg {
   height: 46px;
   width: 46px;
-  margin-right: 20px;
+  margin-right: -2px;
   border-radius: 23px;
+}
+
+.userImg:hover {
+  cursor: pointer;
+}
+
+.signOutButton {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #dc2626;
+}
+
+.signOutButton:hover {
+  background-color: #fef2f2;
+  color: #b91c1c;
+}
+
+.signOutIcon {
+  height: 24px;
+  width: 24px;
+  margin-right: 12px;
+}
+
+.NormalButton {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.NormalButton:hover {
+  background-color: #ebebeb;
+}
+
+.NormalIcon {
+  height: 24px;
+  width: 24px;
+  margin-right: 12px;
+}
+
+.menuText {
+  flex: 1;
+  display: flex;
+  direction: column;
+  /* justify-content: center;  */
+  align-items: center;
 }

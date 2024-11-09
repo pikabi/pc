@@ -4,7 +4,7 @@
  */
 
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import NavBarCss from './css/navbar.module.css';
 import LogButton from './LogButton.tsx';
 import EruteShoppingIcon from '../img/erute-shopping-icon.png';
@@ -13,10 +13,13 @@ import SearchIcon from '../img/search.svg';
 const NavBar: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
+  const navigate = useNavigate();
+
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       // 这里可以处理搜索逻辑
-      alert(`搜索内容: ${searchQuery}`);
+      // alert(`搜索内容: ${searchQuery}`);
+      navigate(`/search?query=${encodeURIComponent(searchQuery)}`);
   };
   return (
     <div className={NavBarCss.navbar}>
@@ -32,14 +35,14 @@ const NavBar: React.FC = () => {
         <form onSubmit={handleSearch} className={NavBarCss.search}>
           <input
             type="text"
-            placeholder="此处搜索商品..."
+            placeholder="搜索心仪的宝贝~"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className={NavBarCss.searchBar}
           />
           <button type="submit" className={NavBarCss.searchButton}>
             <img className={NavBarCss.searchIcon} src={SearchIcon} alt="Search Icon"/>
-            <div className={NavBarCss.searchIconToolTip}>Search</div>
+            <div className={NavBarCss.searchIconToolTip}>搜索</div>
           </button>
         </form>
       </div>

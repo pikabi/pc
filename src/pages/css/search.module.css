@@ -1,0 +1,206 @@
+.search {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #282c34;
+  color: white;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.eruteShopping{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  margin-bottom: 30px;
+  color: inherit;
+}
+
+.eruteShoppingIcon {
+  display: flex;
+  width: 100px;
+}
+
+.eruteShoppingFont {
+  display: flex;
+  font-size: 72px;
+  font-weight: bold;
+  margin-left: 20px;
+  text-decoration: none;
+  font-family: 'Dancing Script', cursive;
+}
+
+.filterSelectBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px
+}
+
+@media (min-width: 950px) {
+  .filterSelectBox {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .filterBox, .sortSelect{
+    margin-bottom: 20px;
+  }
+
+}
+
+.filterBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.filterSort {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sortSelect {
+  display: flex;
+  gap: 10px;
+  width: 160px;
+  margin-bottom: 20px;
+}
+
+.productGrid {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.productCard {
+  color: inherit;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.3s ease;
+}
+
+.productCard:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.productImage {
+  width: 100%;
+  object-fit: cover;
+  margin-bottom: -28px;
+  aspect-ratio: 1/1;
+}
+
+@media (min-width: 648px) {
+  .productGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 888px) {
+  .productGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 1150px) {
+  .productGrid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+
+.productInfo {
+  color: inherit;
+  height: 100px;
+  padding: 16px;
+}
+
+.productLink {
+  text-decoration: none;
+  color: inherit;
+}
+
+.productName {
+  font-weight: 600;
+  font-size: 18px;
+  margin-bottom: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: inherit;
+}
+
+.productPriceSales {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.productPrice {
+  color: #dc2626;
+  font-weight: 700;
+}
+
+.productSales {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.productRatingFavorite {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.productRating {
+  display: flex;
+  align-items: center;
+}
+
+.starIcon {
+  height: 16px;
+  width: 16px;
+  color: #fbbf24;
+  fill: currentColor;
+}
+
+.ratingValue {
+  margin-left: 4px;
+  font-size: 14px;
+  color: #4b5563;
+}
+
+.favoriteButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.heartIcon {
+  height: 18px;
+  width: 18px;
+  color: #9ca3af;
+  transition: color 0.3s ease;
+}
+
+.heartIcon:hover {
+  color: #ef4444;
+}
