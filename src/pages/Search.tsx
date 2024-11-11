@@ -4,12 +4,14 @@
  */
 
 import React, { useState, useMemo } from 'react';
-import { useSearchParams, Link } from 'react-router-dom';
+import { useSearchParams, Link, useNavigate } from 'react-router-dom';
 import { Filter } from '../utils/Filter.tsx';
 import { Select } from '../utils/Select.tsx';
-import { Star, Heart, Scale } from 'lucide-react'
+import { Star, Heart, Scale, Search as SearchIcon } from 'lucide-react'
 import SearchCss from './css/search.module.css';
+import HomeCss from './css/home.module.css';
 import EruteShoppingIcon from '../img/erute-shopping-icon.png';
+import { useLoginContext } from '../AppContext.tsx';
 declare const require: any;
 
 
@@ -31,15 +33,24 @@ const initialProducts = [
 ]
 
 const Search: React.FC = () => {
+  const {isLogged} = useLoginContext();
   const [searchParams] = useSearchParams();
   const query = searchParams.get('query');
+  const [searchTerm, setSearchTerm] = useState(query || '');
   const [sortBy, setSortBy] = useState("default");
   const [filters, setFilters] = useState({
     priceRange: { min: '', max: '' },
     ratingRange: { min: '', max: '' },
     brand: '',
+    location: '',
   });
   const [products, setProducts] = useState(initialProducts);
+  const navigate = useNavigate();
+
+  const handleSearchClick = () => {
+    // TODO: handle search click, get the search results
+    navigate(`/search?query=${encodeURIComponent(searchTerm)}`);
+  }
 
   const handleProduct = (id: number) => () => {
     // TODO: handle product click, get the more detaild information of the product
@@ -51,18 +62,26 @@ const Search: React.FC = () => {
 
   const handleAddToFavourite = (id: number, isFavourite: boolean) => {
     // TODO: contact with backend and change isFavourite
-    alert(`Favourite`);
-    setProducts(products.map(product => 
-        product.id === id ? { ...product, isFavourite: !isFavourite} : product
-    ));
+    if (isLogged) {
+      alert(`Favourite`);
+      setProducts(products.map(product => 
+          product.id === id ? { ...product, isFavourite: !isFavourite} : product
+      ));
+    } else {
+      alert('请先登录');
+    }
   }
 
   const handleAddToScale = (id: number, inScale: boolean) => {
     // TODO: contact with backend and change inScale
-    alert(`Scale`);
-    setProducts(products.map(product => 
-        product.id === id ? { ...product, inScale: !inScale} : product
-    ));
+    if (isLogged) {
+      alert(`Scale`);
+      setProducts(products.map(product => 
+          product.id === id ? { ...product, inScale: !inScale} : product
+      ));
+    } else {
+      alert('请先登录');
+    }
   }
 
   const filteredAndSortedProducts = useMemo(() => {
@@ -92,6 +111,11 @@ const Search: React.FC = () => {
         product.brand.toLowerCase().includes(filters.brand.toLowerCase())
       );
     }
+    if (filters.location) {
+      filteredProducts = filteredProducts.filter(product => 
+        product.locationL.toLowerCase().includes(filters.location.toLowerCase())
+      );
+    }
 
     switch (sortBy) {
       case 'price-asc':
@@ -114,6 +138,22 @@ const Search: React.FC = () => {
         Erute Shopping
       </div>
     </div>
+
+    <header className={HomeCss.header}>
+        <div className={HomeCss.searchContainer}>
+          <input
+            type="text"
+            placeholder="搜索心仪的宝贝~"
+            className={HomeCss.searchInput}
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          <button onClick={()=>handleSearchClick()} className={HomeCss.searchButton}>
+            <SearchIcon className={HomeCss.searchIcon} />
+          </button>
+        </div>
+      </header>
+
     <div className={SearchCss.filterSelectBox}>
       <div className={SearchCss.filterBox}>
         <Filter filters={filters} onFilterChange={setFilters} />
@@ -138,7 +178,6 @@ const Search: React.FC = () => {
             <div className={SearchCss.productInfo}>
               <Link to={`/product?id=${encodeURIComponent(product.id)}`} onClick={handleProduct(product.id)} className={SearchCss.productLink}>
                 <h3 className={SearchCss.productName}>{product.name}</h3>
-              </Link>
               <div className={SearchCss.productPriceSales}>
                 <span className={SearchCss.productPrice}>¥{product.price}</span>
                 <span className={SearchCss.productSales}>{product.sales} 人已购买</span>
@@ -147,6 +186,7 @@ const Search: React.FC = () => {
                 <span className={SearchCss.productBrand}>{product.brand}</span>
                 <span className={SearchCss.productLocation}>{product.locationL}</span>
               </div>
+              </Link>
               <div className={SearchCss.productRatingFavorite}>
                 <div className={SearchCss.productRating}>
                   <Star className={SearchCss.starIcon} />

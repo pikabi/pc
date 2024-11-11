@@ -6,11 +6,13 @@ interface FilterProps {
     priceRange: { min: string; max: string };
     ratingRange: { min: string; max: string };
     brand: string;
+    location: string;
   };
   onFilterChange: (newFilters: {
     priceRange: { min: string; max: string };
     ratingRange: { min: string; max: string };
     brand: string;
+    location: string;
   }) => void;
 }
 
@@ -24,7 +26,7 @@ export function Filter({ filters, onFilterChange }: FilterProps) {
 
     const newFilters = {
       ...filters,
-      [field]: field === "brand"
+      [field]: field === "brand" || field === "location"
         ? value
         : {
             ...filters[field as "priceRange" | "ratingRange"],
@@ -77,7 +79,16 @@ export function Filter({ filters, onFilterChange }: FilterProps) {
               type="text"
               value={filters.brand}
               onChange={(e) => handleInputChange(e, 'brand')}
-              placeholder="品牌名称包含"
+              placeholder="品牌名称"
+            />
+          </div>
+          <div className={FilterCss.filterBoxLong}>
+            <label>地址：</label>
+            <input
+              type="text"
+              value={filters.location}
+              onChange={(e) => handleInputChange(e, 'location')}
+              placeholder="发货地址"
             />
           </div>
         </div>

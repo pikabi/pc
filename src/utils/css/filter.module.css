@@ -2,7 +2,7 @@
 .filter {
   display: flex;
   gap: 10px;
-  font-size: 18px;
+  font-size: 17px;
 }
 
 .filterContainer {
@@ -12,8 +12,16 @@
 }
 
 .row {
-  display: flex;
-  gap: 18px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-content: space-between;
+  gap: 8px;
+}
+
+@media (min-width: 980px) {
+  .row {
+    grid-template-columns: repeat(2, 1fr) repeat(2, 0.72fr);
+  }
 }
 
 .filterBox {
@@ -23,7 +31,6 @@
 }
 
 .filterBox label {
-  margin-right: 6px;
   color: #4b5563;
 }
 
@@ -37,7 +44,7 @@
 }
 
 .filterBox span {
-  margin: 0 10px;
+  margin: 0 5px;
   color: #6b7280;
 }
 
@@ -48,12 +55,11 @@
 }
 
 .filterBoxLong label {
-  margin-right: 6px;
   color: #4b5563;
 }
 
 .filterBoxLong input {
-  width: 120px;
+  width: 80px;
   padding: 6px;
   border: 1px solid #d1d5db;
   border-radius: 6px;
@@ -62,6 +68,6 @@
 }
 
 .filterBoxLong span {
-  margin: 0 10px;
+  margin: 0 5px;
   color: #6b7280;
 }

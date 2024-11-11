@@ -1,0 +1,299 @@
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  min-width: 600px;
+  padding: 2rem 1rem;
+}
+
+
+.eruteShopping{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  margin-bottom: 30px;
+  color: inherit;
+}
+
+
+.eruteShoppingFont {
+  display: flex;
+  font-size: 40px;
+  font-weight: bold;
+  text-decoration: none;
+  /* font-family: 'Roboto', sans-serif; */
+}
+
+.noProduct {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  font-weight: 600;
+  color: #6b7280;
+  margin-top: 20px;
+  height: 300px;
+}
+
+.productGrid {
+  margin-top: 20px;
+  margin-left: 30px;
+  margin-right: 30px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.productCard {
+  color: inherit;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.3s ease;
+}
+
+.productCard:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.productImage {
+  width: 100%;
+  border-radius: 8px;
+  object-fit: cover;
+  margin-bottom: -28px;
+  aspect-ratio: 1/1;
+}
+
+.productLink {
+  position: relative;
+  display: inline-block;
+}
+
+.priceTag {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.lowest {
+  background-color: #ff4500;
+}
+
+.lowBox {
+  margin-top: -6px;
+  background-color: #ff4500;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: none;
+}
+
+.lower {
+  background-color: #f44336;
+}
+
+.higher {
+  background-color: #4caf50;
+}
+
+.unchanged {
+  background-color: #23bef6;
+}
+
+
+@media (min-width: 728px) {
+  .productGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 928px) {
+  .productGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 1150px) {
+  .productGrid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+
+.productInfo {
+  color: inherit;
+  height: 120px;
+  padding: 16px;
+}
+
+.productLink {
+  text-decoration: none;
+  color: inherit;
+}
+
+.productName {
+  font-weight: 600;
+  font-size: 18px;
+  margin-bottom: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: inherit;
+}
+
+.productPriceSales {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.productPrice {
+  color: #dc2626;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.productSales {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.productRating {
+  display: flex;
+  align-items: center;
+}
+
+.starIcon {
+  height: 18px;
+  width: 18px;
+  color: #fbbf24;
+  fill: currentColor;
+}
+
+.ratingValue {
+  margin-left: 4px;
+  font-size: 16px;
+  color: #4b5563;
+  margin-right: 16px;
+}
+
+.scaleButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.scaleIcon {
+  height: 18px;
+  width: 18px;
+  margin-top: 4px;
+  color: #9ca3af;
+  transition: color 0.3s ease;
+}
+
+.scaleIcon:hover {
+  color: #282c34;
+}
+
+.scaleIconToolTip {
+  position: absolute;
+  background-color: gray;
+  color: white;
+  padding-top: 0px;
+  padding-bottom: 4px;
+  padding-left: 8px;
+  padding-right: 8px;
+  border-radius: 6px;
+  font-size: 16px;
+  opacity: 0;
+  z-index: 100;
+  transition: opacity 0.15s;
+  pointer-events: none;
+  white-space: nowrap;
+  margin-left: -30px;
+}
+
+.scaleButton:hover .scaleIconToolTip {
+  opacity: 1;
+}
+
+.scaleIconFilled {
+  color: #282c34;
+  fill: #282c34;
+}
+
+.productDetailTrash {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.detailButton {
+  padding: 9px 18px;
+  background-color: #3b82f6;
+  color: #ffffff;
+  border-radius: 6px;
+  border: none;
+  transition: background-color 0.3s;
+}
+
+.detailButton:hover {
+  background-color: #2563eb;
+  cursor: pointer;
+}
+
+
+.trashButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.trashIcon {
+  height: 26px;
+  width: 26px;
+  color: #9ca3af;
+  transition: color 0.3s ease;
+}
+
+.trashIcon:hover {
+  color: #282c34;
+}
+
+.trashIconToolTip {
+  position: absolute;
+  background-color: gray;
+  color: white;
+  padding-top: 0px;
+  padding-bottom: 4px;
+  padding-left: 8px;
+  padding-right: 8px;
+  border-radius: 6px;
+  font-size: 16px;
+  opacity: 0;
+  z-index: 100;
+  transition: opacity 0.15s;
+  pointer-events: none;
+  white-space: nowrap;
+  margin-left: -27px;
+}
+
+.trashButton:hover .trashIconToolTip {
+  opacity: 1;
+}

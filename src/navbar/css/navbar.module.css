@@ -28,13 +28,23 @@
   display: flex;
   flex:1;
   align-items: center;
-  /* min-width: 250px; */
+  overflow: hidden; 
+  text-decoration: none;
+  color: inherit;
+  margin-right: 10px;
+}
+  
+.leftSectionNoSearch {
+  display: flex;
+  flex:1;
+  align-items: center;
+  min-width: 290px;
   overflow: hidden; 
   text-decoration: none;
   color: inherit;
   margin-right: 20px;
 }
-  
+
 .eruteShopping{
   display: flex;
   align-items: center;
@@ -54,16 +64,25 @@
   font-weight: bold;
   margin-left: 10px;
   opacity: 1;
-  /* min-width: 200px; */
   text-decoration: none;
   font-family: 'Dancing Script', cursive;
 }
 
 @media screen and (max-width: 1000px) {
   .eruteShoppingFont {
-    max-width: 0px;
+    width: 0px;
     opacity: 0;
   }
+}
+
+.eruteShoppingFontNoSearch {
+  display: flex;
+  font-size: 36px;
+  font-weight: bold;
+  margin-left: 10px;
+  opacity: 1;  
+  text-decoration: none;
+  font-family: 'Dancing Script', cursive;
 }
 
 
@@ -74,6 +93,7 @@
   margin-left: 30px;
   margin-right: 20px;
   max-width: 900px;
+  min-width: 200px
 }
 
 .search {
@@ -197,7 +217,7 @@
   align-items: center;
 }
 
-@media (max-width: 728px) {
+@media (max-width: 788px) {
   .notLogged, 
   .logged {
     width: 0;

@@ -38,9 +38,9 @@ const Footer: React.FC = () => {
         <div className={FooterCSS.bottom}>
           <p>&copy; 2024 Erute Shopping. 保留所有权利。</p>
           <div className={FooterCSS.social}>
-            <Link to="#">
+            <a href='https://github.com/pikabi' target="_blank" rel="noopener noreferrer">
               <img src={GithubIcon} className={FooterCSS.githubIcon} alt="Github Icon" />
-            </Link>
+            </a>
           </div>
         </div>
       </div>

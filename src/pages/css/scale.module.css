@@ -1,9 +1,270 @@
-.scale {
+.container {
+  margin-left: 48px;
+  margin-right: 48px;
+  padding: 24px 0px;
+  background-color: white;
+  align-content: center;
+}
+
+.productContainer {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 830px;
+  margin-bottom: 32px;
+  border-radius: 8px;
+
+}
+
+.productList {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  max-width: 1000px;
+  overflow-x: hidden;
+  padding-bottom: 10px;
+}
+
+.productItem {
+  padding: 0 0px;
+  flex: 0 0 33.33%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  align-content: center;
+  /* flex-shrink: 0; */
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.productItemTwo {
+  padding: 0 0px;
+  flex: 0 0 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.productItemOne {
+  padding: 0 0px;
+  flex: 0 0 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.productContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 79%;
+}
+
+.productName {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.imageContainer {
+  display: flex;
   justify-content: center;
-  height: 100vh;
-  background-color: #282c34;
-  color: white;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  max-width: 300px;
+  margin: 0 auto 16px;
+}
+
+.productImage {
+  width: 100%;
+  /* object-fit: contain; */
+  border-radius: 8px;
+}
+
+.radarContainer {
+  /* position: absolute; */
+  width: auto;
+  border-radius: 8px;
+  background: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: opacity 0.3s ease;
+}
+
+.priceTag {
+  display: inline-block;
+  background-color: white;
+  border-radius: 9999px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 8px 24px;
+  margin-bottom: 10px;
+}
+
+.priceTag .price,
+.priceTag .vendor {
+  display: inline;
+  transition: opacity 0.3s ease;
+}
+
+.priceTag:hover .price,
+.priceTag:hover .vendor {
+  opacity: 0;
+}
+
+.priceTag:hover::after {
+  content: "查看商品";
+  display: block;
+  text-align: center;
+  font-size: 18px;
+  padding: 0px 18px;
+  color: #000;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.price {
+  font-weight: bold;
+  font-size: 18px;
+  color: black;
+}
+
+.vendor {
+  font-size: 14px;
+  margin-left: 8px;
+  color: black;
+}
+
+.priceTag::after {
+  content: "";
+  opacity: 0;
+  position: absolute;
+  bottom: 44px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.vsLabel {
+  width: 36px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 45%;
+  right: -20px;
+  font-weight: bold;
+  font-size: 18px;
+  z-index: 10;
+  padding-bottom: 3px;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  transform: translateY(-50%);
+}
+
+.scaleButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.deleteTag {
+  display: flex;
+  background-color: rgb(255, 255, 255);
+  border-radius: 9999px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 8px 32px;
+  align-items: center;
+  transition: background-color 0.3s ease;
+}
+
+.trashIcon {
+  height: 18px;
+  width: 18px;
+  color: #9ca3af;
+  transition: color 0.3s ease;
+}
+
+.deleteTag:hover {
+  background-color: rgb(255, 0, 0, 0.1);
+}
+
+.deleteTag:hover .trashIcon {
+  color: red;
+}
+
+.scaleText {
+  font-size: 17px;
+  margin-left: 8px;
+  color: black;
+  transition: color 0.3s ease;
+}
+
+.deleteTag:hover .scaleText {
+  color: red; 
+}
+
+.navButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: white;
+  border-radius: 50%;
+  padding: 8px;
+  z-index: 10;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: none;
+  cursor: pointer;
+}
+
+.navButton:hover {
+  background-color: #f3f4f6;
+}
+
+.navButton:first-child {
+  left: -16px;
+}
+
+.navButton:last-child {
+  right: -16px;
+}
+
+@media (min-width: 1145px) {
+  .navButton:first-child {
+    left: calc(-588px + 50vw);
+  }
+  
+  .navButton:last-child {
+    right: calc(-588px + 50vw);
+  }
+}
+
+.navIcon {
+  width: 24px;
+  height: 24px;
+}
+
+
+.chartContainer {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 24px;
+}
+
+.radar {
+  width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }

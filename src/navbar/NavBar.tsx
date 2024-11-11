@@ -4,7 +4,7 @@
  */
 
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation  } from 'react-router-dom';
 import NavBarCss from './css/navbar.module.css';
 import LogButton from './LogButton.tsx';
 import EruteShoppingIcon from '../img/erute-shopping-icon.png';
@@ -13,8 +13,10 @@ import SearchIcon from '../img/search.svg';
 const NavBar: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
+  const location = useLocation();
+  const currentPath = location.pathname;
   const navigate = useNavigate();
-
+  
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       // 这里可以处理搜索逻辑
@@ -23,14 +25,16 @@ const NavBar: React.FC = () => {
   };
   return (
     <div className={NavBarCss.navbar}>
-      <div className={NavBarCss.leftSection}>
+      <div className={`${(currentPath !== '/' && currentPath !== '/search')? NavBarCss.leftSection: NavBarCss.leftSectionNoSearch}`}>
         <Link to="/" className={NavBarCss.eruteShopping}>
           <img src={EruteShoppingIcon} className={NavBarCss.eruteShoppingIcon} alt="Erute Shopping Icon" />
-          <div className={NavBarCss.eruteShoppingFont}>
+          <div className={`${(currentPath !== '/' && currentPath !== '/search')? NavBarCss.eruteShoppingFont: NavBarCss.eruteShoppingFontNoSearch}`}>
             Erute Shopping
           </div>
         </Link>
       </div>
+      {
+      currentPath !== '/' && currentPath !== '/search' && 
       <div className={NavBarCss.middleSection}>
         <form onSubmit={handleSearch} className={NavBarCss.search}>
           <input
@@ -46,6 +50,7 @@ const NavBar: React.FC = () => {
           </button>
         </form>
       </div>
+      }
       <div className={NavBarCss.rightSection}>
         <LogButton />
       </div>

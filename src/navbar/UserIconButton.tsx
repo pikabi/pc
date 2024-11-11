@@ -9,7 +9,15 @@ import {LogOut, Home, User, Scale, Bell, Heart} from 'lucide-react'
 
 
 export default function UserIconButton(){
-  const {isLogged} = useLoginContext();
+  const {isLogged, setIsLogged,
+    id, setId,
+    loginTime, setLoginTime,
+    userName, setUserName,
+    userEmail, setUserEmail,
+    userPhone, setUserPhone,
+    userCountry, setUserCountry,
+    userAddress, setUserAddress,
+  } = useLoginContext();
   const [anchorEl, setAnchorEl] = useState(null);
 
   const navigate = useNavigate();
@@ -49,7 +57,16 @@ export default function UserIconButton(){
 
   const handleLogOut = () => {
     setAnchorEl(null);
-
+    setIsLogged(false);
+    setId(0);
+    setLoginTime('');
+    setUserName('');
+    setUserEmail('');
+    setUserPhone('');
+    setUserCountry('');
+    setUserAddress('');
+    localStorage.removeItem('loginData');
+    navigate('/');
   }
 
 

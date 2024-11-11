@@ -43,14 +43,14 @@
   width: 100%;
   max-width: 450px;
   background-color: white;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px 4px rgba(0, 0, 0, 0.05);
   border-radius: 1px;
   overflow: hidden;
 }
 
 .profileHeader {
   padding: 16px 16px;
-  background-color: #f9fafb;
+  background-color: #f9f9f9;
   border-bottom: 1px solid #e5e7eb;
 }
 

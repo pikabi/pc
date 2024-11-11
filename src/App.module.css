@@ -4,7 +4,7 @@
 
 .body::before {
   background-image: url('img/background.png');
-  opacity: 0.08;
+  opacity: 0.04;
   content: '';
   position: fixed;
   top: 0;
