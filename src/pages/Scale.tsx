@@ -7,9 +7,14 @@ import React from 'react';
 import ProductItem from './scale/ProductItem.tsx';
 import ScaleCss from './css/scale.module.css';
 import { ChevronRight, ChevronLeft } from 'lucide-react';
-import { Radar } from 'react-chartjs-2';
+import { Radar, Bar } from 'react-chartjs-2';
+import { useLoginContext } from '../AppContext.tsx';
 import {
   Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
   RadialLinearScale,
   PointElement,
   LineElement,
@@ -24,24 +29,32 @@ ChartJS.register(
   RadialLinearScale,
   PointElement,
   LineElement,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
   Filler,
   Tooltip,
-  Legend
+  Legend,
 );
 
-const initialProducts = [
-  { id: 1, name: "时尚连衣裙", price: 199, rating: 4.5, sales: 1000, quality: 4.2, features: 4.0, priceRating: 2.9, salesRating: 1.8, qualityRating: 4.7, featuresRating: 0.6, image: require("../img/search/kun.jpg"), inScale: true},
-  { id: 2, name: "男士休闲鞋", price: 299, rating: 4.2, sales: 800, quality: 4.5, features: 2.3, priceRating: 4.8, salesRating: 3.7, qualityRating: 2.9, featuresRating: 4.5, image: require("../img/search/kun.jpg"), inScale: true},
-  { id: 3, name: "智能手表", price: 599, rating: 4.7, sales: 1500, quality: 4.8, features: 1.6, priceRating: 1.9, salesRating: 4.6, qualityRating: 3.8, featuresRating: 1.4, image: require("../img/search/kun.jpg"), inScale: true},
-  { id: 4, name: "运动耳机", price: 99, rating: 4.0, sales: 1200, quality: 3.9, features: 4.5, priceRating: 4.5, salesRating: 4.0, qualityRating: 3.2, featuresRating: 4.8, image: require("../img/search/kun.jpg"), inScale: true},
-  { id: 5, name: "女士包包", price: 399, rating: 4.3, sales: 900, quality: 4.6, features: 3.2, priceRating: 3.8, salesRating: 2.9, qualityRating: 4.2, featuresRating: 3.5, image: require("../img/search/kun.jpg"), inScale: true},
-  { id: 6, name: "男士夹克", price: 499, rating: 4.4, sales: 700, quality: 4.7, features: 2.9, priceRating: 3.2, salesRating: 1.9, qualityRating: 4.5, featuresRating: 2.8, image: require("../img/search/kun.jpg"), inScale: true},
-  { id: 7, name: "女士运动鞋", price: 199, rating: 4.1, sales: 1100, quality: 4.3, features: 3.8, priceRating: 4.2, salesRating: 3.2, qualityRating: 3.9, featuresRating: 3.2, image: require("../img/search/kun.jpg"), inScale: true},
-  { id: 8, name: "男士运动裤", price: 149, rating: 4.0, sales: 1300, quality: 4.1, features: 4.2, priceRating: 4.0, salesRating: 4.1, qualityRating: 3.5, featuresRating: 4.0, image: require("../img/search/kun.jpg"), inScale: true},
-  { id: 9, name: "女士运动裤", price: 129, rating: 4.0, sales: 1400, quality: 4.0, features: 4.0, priceRating: 4.1, salesRating: 4.2, qualityRating: 3.7, featuresRating: 4.1, image: require("../img/search/kun.jpg"), inScale: true},
-  { id: 10, name: "男士运动鞋", price: 179, rating: 4.2, sales: 1000, quality: 4.2, features: 3.9, priceRating: 4.3, salesRating: 3.8, qualityRating: 4.0, featuresRating: 3.9, image: require("../img/search/kun.jpg"), inScale: true},
-];
-
+interface Product {
+  id: number;
+  name: string;
+  price: number;
+  extraPrice: number;
+  shopRating: number;
+  sales: number;
+  priceRating: number;
+  hotRating: number;
+  discountRating: number;
+  varietyRating: number;
+  brand: string;
+  location: string;
+  image: string;
+  platform: string;
+  inScale: boolean;
+}
 
 // rgba[n].r、rgba[n].g、rgba[n].b 分别获取 rgba[n] 的 r、g、b 值
 const rgbaList = [
@@ -57,13 +70,74 @@ const rgbaList = [
 ];
 
 const Scale: React.FC = () => {
-  const [productsAll, setProductsAll] = React.useState(initialProducts);
-  const [products, setProducts] = React.useState(initialProducts);
+  const {id} = useLoginContext();
+  const [productsAll, setProductsAll] = React.useState<Product[]>([]);
+  const [products, setProducts] = React.useState<Product[]>([]);
   const [startIndex, setStartIndex] = React.useState(0);
+  const [stacked, setStacked] = React.useState(false);
   const productsToShow = 3;
-  // const currentProducts = products.slice(startIndex, startIndex + productsToShow);
 
-  // product 是 productsAll 中 inscale 为 true 的每一个对象
+  React.useEffect(() => {
+    const fetchData = async () => {
+      try {
+        console.log(id);
+        const response = await fetch(`http://localhost:5000/scale?id=${id}`,{
+          method: 'GET',
+          headers: { 'Content-Type': 'application/json' },
+        });
+        console.log(response);
+        if (response.ok) {
+          let data = await response.json();
+          console.log(data);
+          if (data.length === 0) {
+            setProductsAll([]);
+          }
+          else {
+            setProductsAll(data.map(item => ({
+              id: item.id,
+              name: item.name,
+              price: item.price,
+              extraPrice: item.extraPrice,
+              shopRating: item.shopRating,
+              sales: item.total_sales,
+              priceRating: item.priceRating,
+              hotRating: item.hotRating,
+              discountRating: item.discountRating,
+              varietyRating: item.varietyRating,
+              brand: item.shopName,
+              location: item.procity,
+              image: item.image_url,
+              platform: item.platform,
+              inScale: true
+            })));
+          }
+        } else {
+          console.error('请求失败');
+          const data = await response.json();
+          alert(data.message || '请求失败');
+        }
+      } catch (error) {
+        console.error('发生错误:', error);
+      }
+    };
+
+    function handleProductItem(product: Product) {
+      fetch(product.image)
+        .then(response => {
+          if (response.ok) {
+            return response.blob();
+          }
+          throw new Error('Network response was not ok.');
+        })
+        .catch(error => {
+          console.error('There has been a problem with your fetch operation:', error);
+        });
+    }
+
+    fetchData();
+    products.forEach(handleProductItem);
+  }, []);
+
   React.useEffect(() => {
     setProducts(productsAll.filter(product => product.inScale));
   }, [productsAll]); 
@@ -82,15 +156,15 @@ const Scale: React.FC = () => {
 
   const getChartData = () => {
     return {
-      labels: ['质量', '评分', '销量', '功能', '价格'],
+      labels: ['价格', '商家', '热度', '折扣', '多样'],
       datasets: products.map((product, index) => ({
-        label: product.name,
+        label: product.name.length > 18 ? product.name.slice(0, 15) + '...' : product.name,
         data: [
-          product.qualityRating,
-          product.rating,
-          product.salesRating,
-          product.featuresRating,
           product.priceRating,
+          product.shopRating,
+          product.hotRating,
+          product.discountRating,
+          product.varietyRating,
         ],
         backgroundColor: `rgba(${rgbaList[index % 9].r}, ${rgbaList[index % 9].g}, ${rgbaList[index % 9].b}, ${0.2 + index * 0.14})`,
         borderColor: `rgba(${rgbaList[index % 9].r}, ${rgbaList[index % 9].g}, ${rgbaList[index % 9].b}, 1)`,
@@ -151,7 +225,80 @@ const Scale: React.FC = () => {
     },
   };
 
-  return (
+  const getBarData = () => {
+    return {
+      labels: products.map(product => product.name.length > Math.max(8, 60 / products.length) ? product.name.slice(0, Math.max(8, 60 / products.length) - 1) + '...' : product.name),
+      datasets: [
+        {
+          label: '价格',
+          data: products.map(product => product.priceRating),
+          backgroundColor: 'rgba(136, 132, 216, 0.8)',
+        },
+        {
+          label: '商家',
+          data: products.map(product => product.shopRating),
+          backgroundColor: 'rgba(130, 202, 157, 0.8)',
+        },
+        {
+          label: '热度',
+          data: products.map(product => product.hotRating),
+          backgroundColor: 'rgba(255, 198, 88, 0.8)',
+        },
+        {
+          label: '折扣',
+          data: products.map(product => product.discountRating),
+          backgroundColor: 'rgba(255, 99, 71, 0.8)',
+        },
+        {
+          label: '多样',
+          data: products.map(product => product.varietyRating),
+          backgroundColor: 'rgba(0, 191, 255, 0.8)',
+        }
+      ],
+    };
+  };
+
+  const barOptions = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      tooltip: {
+        enabled: true,
+      },
+    },
+    scales: {
+      x: {
+        stacked: false,
+      },
+      y: {
+        stacked: false,
+      },
+    },
+  };
+
+  const stackedBarOptions = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      tooltip: {
+        enabled: true,
+      },
+    },
+    scales: {
+      x: {
+        stacked: true,
+      },
+      y: {
+        stacked: true,
+      },
+    },
+  };
+
+  return (<div className={ScaleCss.containerAll}>
     <div className={ScaleCss.container}>
       <div className={ScaleCss.productContainer}>
         {startIndex > 0 && (
@@ -162,8 +309,8 @@ const Scale: React.FC = () => {
             <ChevronLeft className={ScaleCss.navIcon} />
           </button>
         )}
-        {products.length === 0 ?  <div>
-          
+        {products.length === 0 ?  <div className={ScaleCss.noItemText}>
+            暂无商品，请前往搜索页面添加！
           </div>
           : <div className={ScaleCss.productList}>
             {products.map((product, index) => (
@@ -175,7 +322,7 @@ const Scale: React.FC = () => {
                 products={productsAll}
                 setProducts={setProductsAll}
                 startIndex={startIndex}
-                isLast={index === startIndex + productsToShow - 1 || index === products.length - 1}
+                isLast={index === startIndex + productsToShow - 1 || index === products.length - 1 || index === startIndex - 1}
             />
 
             ))}
@@ -191,10 +338,24 @@ const Scale: React.FC = () => {
           </button>
         )}
       </div>
-      <div className={ScaleCss.radar}>
-        <Radar data={getChartData()} options={chartOptions} />
+      <div className={ScaleCss.chartContainer}>
+        <div className={ScaleCss.radar}>
+          <Radar data={getChartData()} options={chartOptions} />
+        </div>
+        <div className={ScaleCss.bar}>
+          {
+            stacked ? <h2 className={ScaleCss.barTitle}>堆叠条形图</h2> : <h2 className={ScaleCss.barTitle}>条形图</h2>
+          }
+          {stacked ? <Bar data={getBarData()} options={stackedBarOptions} /> :
+            <Bar data={getBarData()} options={barOptions}/>
+          }
+          <button onClick={() => setStacked(!stacked)} className={ScaleCss.stackedButton}>
+            {stacked ? '取消堆叠' : '堆叠'}
+          </button>
+        </div>
       </div>
     </div>
+  </div>
   );
 };
 

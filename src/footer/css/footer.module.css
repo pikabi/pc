@@ -1,4 +1,7 @@
 .footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   background-color: #3c3c3c;
   color: #f9f9f9;
   padding: 1rem 0;
@@ -13,15 +16,8 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  gap: 1rem;
-}
-
-@media (min-width: 788px) {
-  .grid {
-    grid-template-columns: 1.5fr 0.75fr 1fr;
-    gap: 4rem;
-  }
+  grid-template-columns: 1.5fr 0.75fr 1fr;
+  gap: 4rem;
 }
 
 .about, .links, .contact {

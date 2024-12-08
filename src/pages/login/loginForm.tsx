@@ -53,72 +53,76 @@ export default function LoginForm() {
       return;
     }
 
-    // 判断 nameOrEmail 是用户名还是邮箱
-    // 如果是用户名，设置 name
-    // 如果是邮箱，设置 email
+    let _name = '';
+    let _email = '';
+
     if (nameOrEmail.includes('@')) {
       setEmail(nameOrEmail);
+      setName('');
+      _email = nameOrEmail;
     } else {
       setName(nameOrEmail);
+      setEmail('');
+      _name = nameOrEmail;
     }
 
-    // make a POST request to the server
-    // try {
-    //   const response = await fetch('http://localhost:3001/api/login', {
-    //     method: 'POST',
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify({ name, email, password })
-    //   });
-
-    //   if (response.ok) {
-    //     const data = await response.json();
-    //     setSnackbarMessage('登录成功！');
-    //     setSnackbarSeverity('success');
-    //     setOpenSnackbar(true);
-    //     setIsLogged(true);
-    //     const currentTime = new Date().toLocaleString();
-    //     setLoginTime(currentTime);
-    //     setId(data.id);
-    //     setUserName(data.name);
-    //     setUserEmail(data.email);
-    //     setUserPhone(data.phone);
-    //     setUserCountry(data.country);
-    //     setUserAddress(data.address);
-    //     setTimeout(() => {
-    //       navigate('/');
-    //     }, 1500);
-    //   } else {
-    //     const data = await response.json();
-    //     setSnackbarMessage(data.message || '登录失败。');
-    //     setSnackbarSeverity('error');
-    //     setOpenSnackbar(true);
-    //   }
-    // } catch (error) {
-    //   setSnackbarMessage('发生意外错误。请重试。');
-    //   setSnackbarSeverity('error');
-    //   setOpenSnackbar(true);
-    // }
-
-    // for test, no request to server
     try {
-      setSnackbarMessage('登录成功！');
-      setSnackbarSeverity('success');
-      setOpenSnackbar(true);
-      setIsLogged(true);
-      const currentTime = new Date().toLocaleString();
-      setLoginTime(currentTime);
-      setId(1);
-      setUserName('user1');
-      setUserEmail('user1@zju.edu.cn');
-      // loginDidUpdate();
-      setTimeout(() => {
-        navigate('/');
-      }, 1500);
+      const current = new Date();
+      const response = await fetch('http://localhost:5000/user/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: _name, email: _email, password, loginTime: current.toString() }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setSnackbarMessage(data.message || '登录成功！');
+        setSnackbarSeverity('success');
+        setOpenSnackbar(true);
+        setIsLogged(true);
+        const currentTime = new Date().toLocaleString();
+        setLoginTime(currentTime);
+        setId(data.id);
+        setUserName(data.name);
+        setUserEmail(data.email);
+        setUserPhone(data.phone);
+        setUserCountry(data.country);
+        setUserAddress(data.address);
+        setTimeout(() => {
+          navigate('/');
+        }, 1500);
+      } else {
+        const data = await response.json();
+        setSnackbarMessage(data.message || '登录失败。');
+        setSnackbarSeverity('error');
+        setOpenSnackbar(true);
+      }
     } catch (error) {
       setSnackbarMessage('发生意外错误。请重试。');
       setSnackbarSeverity('error');
       setOpenSnackbar(true);
     }
+
+    // for test, no request to server
+    // try {
+    //   setSnackbarMessage('登录成功！');
+    //   setSnackbarSeverity('success');
+    //   setOpenSnackbar(true);
+    //   setIsLogged(true);
+    //   const currentTime = new Date().toLocaleString();
+    //   setLoginTime(currentTime);
+    //   setId(1);
+    //   setUserName('user1');
+    //   setUserEmail('user1@zju.edu.cn');
+    //   // loginDidUpdate();
+    //   setTimeout(() => {
+    //     navigate('/');
+    //   }, 1500);
+    // } catch (error) {
+    //   setSnackbarMessage('发生意外错误。请重试。');
+    //   setSnackbarSeverity('error');
+    //   setOpenSnackbar(true);
+    // }
   };
 
   return (

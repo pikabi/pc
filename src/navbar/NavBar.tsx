@@ -21,7 +21,7 @@ const NavBar: React.FC = () => {
       e.preventDefault();
       // 这里可以处理搜索逻辑
       // alert(`搜索内容: ${searchQuery}`);
-      navigate(`/search?query=${encodeURIComponent(searchQuery)}`);
+      navigate(`/search?query=${encodeURIComponent(searchQuery)}&page=1`);
   };
   return (
     <div className={NavBarCss.navbar}>

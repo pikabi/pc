@@ -2,7 +2,7 @@
  * @fileoverview userMain form component
  * @file src/pages/user/userMain.tsx
  */
-import React, { useState }  from 'react';
+import React, { useState, useEffect }  from 'react';
 import { useNavigate } from 'react-router-dom';
 import { User, Mail, LogOut, Phone, Globe, MapPin, Check, Edit, Clock} from 'lucide-react'
 import { Button, Snackbar, Alert } from '@mui/material';
@@ -52,6 +52,25 @@ export default function UserMain() {
     'country': userCountry,
     'address': userAddress,
   })
+
+  useEffect(() => {
+    const modifyData = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/user/update', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id, userName, userEmail, userPhone, userCountry, userAddress})
+        });
+        if (!response.ok){
+          console.error('请求失败');
+        }
+      } catch (error) {
+        console.error('发生错误:', error);
+      }
+    };
+
+    modifyData();
+  }, [userPhone, userCountry, userAddress]); 
 
   const handleEdit = (type: keyof typeof editMode) => {
     setEditMode(prev => ({ ...prev, [type]: true }));

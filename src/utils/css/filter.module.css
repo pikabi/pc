@@ -1,5 +1,6 @@
 /* filter.module.css */
 .filter {
+  /* min-width: 1200px; */
   display: flex;
   gap: 10px;
   font-size: 17px;
@@ -13,15 +14,9 @@
 
 .row {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, 1fr) repeat(2, 0.72fr);
   justify-content: space-between;
   gap: 8px;
-}
-
-@media (min-width: 980px) {
-  .row {
-    grid-template-columns: repeat(2, 1fr) repeat(2, 0.72fr);
-  }
 }
 
 .filterBox {

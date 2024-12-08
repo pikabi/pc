@@ -3,16 +3,35 @@ import { Radar } from 'react-chartjs-2';
 import { Trash2 } from 'lucide-react';
 import ScaleCss from '../css/scale.module.css';
 import { Link } from 'react-router-dom';
+import { useLoginContext } from '../../AppContext.tsx';
+declare const require: any;
 
 const ProductItem = ({ product, index, productLength, products, setProducts, startIndex ,isLast}) => {
+  const {id} = useLoginContext();
   const [isHovered, setIsHovered] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
 
-  const handleDeleteScale = (id: number) => {
-    setProducts(products.map(product =>
-      product.id === id ? { ...product, inScale: false} : product
-    ))
+  const handleDeleteScale = async (userID: number, productId: number) => {
+    try {
+      const response = await fetch('http://localhost:5000/scale/delete', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ user_id: userID, product_id: productId})
+      });
+      if (response.ok) {
+        setProducts(products.map(product =>
+          product.id === productId ? { ...product, inScale: false} : product
+        ));
+        console.log('删除成功');
+      } else {
+        console.error('请求失败');
+        const data = await response.json();
+        alert(data.message || '请求失败');
+      }
+    } catch (error) {
+      console.error('发生错误:', error);
+    }
   }
 
   useEffect(() => {
@@ -29,15 +48,15 @@ const ProductItem = ({ product, index, productLength, products, setProducts, sta
   }, [containerRef]);
 
   const ChartData = useMemo(() => ( {
-    labels: ['质量', '评分', '销量', '功能', '价格'],
+    labels: ['价格', '商家', '热度', '折扣', '多样'],
     datasets: [{
       label: product.name,
       data: [
-          product.qualityRating,
-          product.rating,
-          product.salesRating,
-          product.featuresRating,
-          product.priceRating,
+        product.priceRating,
+        product.shopRating,
+        product.hotRating,
+        product.discountRating,
+        product.varietyRating,
       ],
       backgroundColor: 'rgba(138, 43, 226, 0.2)',
       borderColor: 'rgba(138, 43, 226, 1)',
@@ -114,11 +133,11 @@ const ProductItem = ({ product, index, productLength, products, setProducts, sta
         </div>
         <Link to={`/product?id=${product.id}`} >
           <div className={ScaleCss.priceTag}>
-              <span className={ScaleCss.price}>￥{product.price}</span>
-              <span className={ScaleCss.vendor}>amazon</span>
+              <span className={ScaleCss.price}>￥{Math.min(Number(product.price), Number(product.extraPrice)).toFixed(2)}</span>
+              <span className={ScaleCss.vendor}>{product.platform==='jd'?'京东': product.platform==='tm'?"天猫":"淘宝"}</span>
           </div>
         </Link>
-        <button onClick={()=>handleDeleteScale(product.id)} className={ScaleCss.scaleButton} aria-label="Add to scale">
+        <button onClick={()=>handleDeleteScale(id, product.id)} className={ScaleCss.scaleButton} aria-label="Add to scale">
           <div className={ScaleCss.deleteTag}>
             <Trash2 className={ScaleCss.trashIcon} />
             <div className={ScaleCss.scaleText}>
