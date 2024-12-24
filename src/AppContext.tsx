@@ -21,6 +21,8 @@ const LoginContext = createContext({
   setUserCountry: (value:string) => {},
   userAddress: '',
   setUserAddress: (value:string) => {},
+  unreadMessage: 0,
+  setUnreadMessage: (value:number) => {},
 });
 
 function getInitialLoginState() {
@@ -37,6 +39,7 @@ function getInitialLoginState() {
       userPhone: '',
       userCountry: '',
       userAddress: '',
+      unreadMessage: 0,
     };
   }
 }
@@ -50,6 +53,7 @@ export const LoginContextProvider: React.FC<{ children: ReactNode }> = ({ childr
   const [userPhone, setUserPhone] = useState(() => getInitialLoginState().userPhone);
   const [userCountry, setUserCountry] = useState(() => getInitialLoginState().userCountry);
   const [userAddress, setUserAddress] = useState(() => getInitialLoginState().userAddress);
+  const [unreadMessage, setUnreadMessage] = useState(() => getInitialLoginState().unreadMessage);
 
   const state = {
     isLogged,
@@ -59,7 +63,8 @@ export const LoginContextProvider: React.FC<{ children: ReactNode }> = ({ childr
     userEmail,
     userPhone,
     userCountry,
-    userAddress
+    userAddress,
+    unreadMessage,
   };
 
   useEffect(() => {
@@ -76,6 +81,7 @@ export const LoginContextProvider: React.FC<{ children: ReactNode }> = ({ childr
       userPhone, setUserPhone,
       userCountry, setUserCountry,
       userAddress, setUserAddress,
+      unreadMessage, setUnreadMessage
     }}>
       {children}
     </LoginContext.Provider>

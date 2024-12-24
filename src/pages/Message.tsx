@@ -24,7 +24,7 @@ import { useLoginContext } from '../AppContext.tsx'
 // ]
 
 const Message: React.FC = () => {
-  const {id} = useLoginContext();
+  const {id, setUnreadMessage} = useLoginContext();
   const [searchParams] = useSearchParams();
   const type = searchParams.get('type');
   const page = searchParams.get('page');
@@ -46,7 +46,7 @@ const Message: React.FC = () => {
     if (type === 'product') {
       const fetchPriceDown = async () => {
         try {
-          const response = await fetch(`http://localhost:5000/message/price?id=${id}&page=${page}`, {
+          const response = await fetch(`http://47.115.211.226:5000/message/price?id=${id}&page=${page}`, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
           });
@@ -59,6 +59,7 @@ const Message: React.FC = () => {
               favourite: item.product_name,
               link: item.product_url
             })));
+            setUnreadMessage(0);
             console.log(data);
             console.log(MessagesProduct);
           }
@@ -75,7 +76,7 @@ const Message: React.FC = () => {
     else if(type === 'system') {
       const fetchSystem = async () => {
         try {
-          const response = await fetch(`http://localhost:5000/message/system?id=${id}&page=${page}`, {
+          const response = await fetch(`http://47.115.211.226:5000/message/system?id=${id}&page=${page}`, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
           });

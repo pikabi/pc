@@ -87,7 +87,7 @@ const Search: React.FC = () => {
 
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/product/search?id=${id}&query=${query}&page=${page}`,{
+        const response = await fetch(`http://47.115.211.226:5000/product/search?id=${id}&query=${query}&page=${page}`,{
           method: 'GET',
           headers: { 'Content-Type': 'application/json' },
         });
@@ -154,7 +154,7 @@ const Search: React.FC = () => {
     if (isLogged) {
       if (isFavourite === true) {
         try {
-          const response = await fetch('http://localhost:5000/favourite/delete', {
+          const response = await fetch('http://47.115.211.226:5000/favourite/delete', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ user_id: userId, product_id: productId})
@@ -175,7 +175,7 @@ const Search: React.FC = () => {
       }
       else {
         try {
-          const response = await fetch('http://localhost:5000/favourite/insert', {
+          const response = await fetch('http://47.115.211.226:5000/favourite/insert', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ user_id: userId, product_id: productId})
@@ -203,7 +203,7 @@ const Search: React.FC = () => {
     if (isLogged) {
       if (inScale === true) {
         try {
-          const response = await fetch('http://localhost:5000/scale/delete', {
+          const response = await fetch('http://47.115.211.226:5000/scale/delete', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ user_id: userId, product_id: productId})
@@ -224,7 +224,7 @@ const Search: React.FC = () => {
       }
       else {
         try {
-          const response = await fetch('http://localhost:5000/scale/insert', {
+          const response = await fetch('http://47.115.211.226:5000/scale/insert', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ user_id: userId, product_id: productId})

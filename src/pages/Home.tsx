@@ -39,7 +39,7 @@ export default function Homepage() {
   React.useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/product/random`,{
+        const response = await fetch(`http://47.115.211.226:5000/product/random`,{
           method: 'GET',
           headers: { 'Content-Type': 'application/json' },
         });

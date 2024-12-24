@@ -12,7 +12,7 @@ import UserIconButton from './UserIconButton.tsx';
 
 
 export default function LogButton(){
-  const {isLogged} = useLoginContext();
+  const {isLogged, unreadMessage} = useLoginContext();
   return <div className={NavBarCss.rightSectionItems}>
     <div>
       {isLogged ? (
@@ -21,6 +21,7 @@ export default function LogButton(){
             <button className={NavBarCss.messageIconButton}>
               <Bell className={NavBarCss.messageIcon} />
               <div className={NavBarCss.messageIconToolTip}>消息</div>
+              {unreadMessage > 0 && <div className={NavBarCss.unreadMessage}></div>}
             </button>
           </Link>
           <Link to='/favourite'>

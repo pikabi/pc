@@ -63,7 +63,7 @@ export default function RegisterForm() {
 
   const handleSendCaptcha = async () => {
     try {
-      const response = await fetch("http://localhost:5000/user/email", { 
+      const response = await fetch("http://47.115.211.226:5000/user/email", { 
         method: "POST", 
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email }) }
@@ -113,7 +113,7 @@ export default function RegisterForm() {
 
     // make a POST request to the server
     try {
-      const response = await fetch('http://localhost:5000/user/register', {
+      const response = await fetch('http://47.115.211.226:5000/user/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email, password, captcha }),

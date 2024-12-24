@@ -35,7 +35,7 @@ const Favourite: React.FC = () => {
 
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/favourite?id=${id}`,{
+        const response = await fetch(`http://47.115.211.226:5000/favourite?id=${id}`,{
           method: 'GET',
           headers: { 'Content-Type': 'application/json' },
         });
@@ -97,7 +97,7 @@ const Favourite: React.FC = () => {
   const handleAddToTrash = async (userId: number, productId: number) => {
     if (isLogged) {
       try {
-        const response = await fetch('http://localhost:5000/favourite/delete', {
+        const response = await fetch('http://47.115.211.226:5000/favourite/delete', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ user_id: userId, product_id: productId})
@@ -124,7 +124,7 @@ const Favourite: React.FC = () => {
     if (isLogged) {
       if (inScale === true) {
         try {
-          const response = await fetch('http://localhost:5000/scale/delete', {
+          const response = await fetch('http://47.115.211.226:5000/scale/delete', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ user_id: userId, product_id: productId})
@@ -145,7 +145,7 @@ const Favourite: React.FC = () => {
       }
       else {
         try {
-          const response = await fetch('http://localhost:5000/scale/insert', {
+          const response = await fetch('http://47.115.211.226:5000/scale/insert', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ user_id: userId, product_id: productId})
@@ -186,7 +186,7 @@ const Favourite: React.FC = () => {
         <div key={product.id} className={FavouriteCss.productCard}>
             <Link to={`/product?id=${encodeURIComponent(product.id)}`} onClick={handleProduct(product.id)} className={FavouriteCss.productLink}>
               <img src={product.image} alt={product.name} className={FavouriteCss.productImage} />
-                {product.priceChange != null && (
+                {/* {product.priceChange != null && (
                   <span className={`${FavouriteCss.priceTag} ${FavouriteCss[product.priceChange === 2? "lowest" : (product.priceChange === 1? "lower": product.priceChange === 3?"higher": "unchanged")]}`}>
                   {product.priceChange === 2 ? <div className={FavouriteCss.lowBox}>
                     <div>🔥</div> <div>史低</div>
@@ -194,7 +194,7 @@ const Favourite: React.FC = () => {
                   product.priceChange === 1? <TrendingDown /> : 
                   product.priceChange === 3 ? <TrendingUp />: 
                   <Minus />}
-                </span>)}
+                </span>)} */}
             </Link>
             <div className={FavouriteCss.productInfo}>
               <Link to={`/product?id=${encodeURIComponent(product.id)}`} onClick={handleProduct(product.id)} className={FavouriteCss.productLink}>

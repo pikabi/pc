@@ -278,6 +278,16 @@
   color: #4a5568;
 }
 
+.unreadMessage {
+  height: 10px;
+  width: 10px;
+  background-color: #dc2626;
+  border-radius: 5px;
+  position: relative;
+  top: -38px;
+  right: -16px;
+}
+
 .imgAll {
   margin-left: 5px;
   margin-right: 25px;

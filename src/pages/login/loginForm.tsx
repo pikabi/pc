@@ -27,6 +27,7 @@ export default function LoginForm() {
     userPhone, setUserPhone,
     userCountry, setUserCountry,
     userAddress, setUserAddress,
+    unreadMessage, setUnreadMessage
    } = useLoginContext();
 
   function loginDidUpdate() {
@@ -37,7 +38,8 @@ export default function LoginForm() {
       userName,
       userPhone,
       userCountry,
-      userAddress
+      userAddress,
+      unreadMessage,
     };
 
     localStorage.setItem('loginData', JSON.stringify(state));
@@ -67,8 +69,8 @@ export default function LoginForm() {
     }
 
     try {
-      const current = new Date();
-      const response = await fetch('http://localhost:5000/user/login', {
+      const current = new Date().getTime();
+      const response = await fetch('http://47.115.211.226:5000/user/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: _name, email: _email, password, loginTime: current.toString() }),
@@ -88,6 +90,7 @@ export default function LoginForm() {
         setUserPhone(data.phone);
         setUserCountry(data.country);
         setUserAddress(data.address);
+        setUnreadMessage(data.unreadMessage);
         setTimeout(() => {
           navigate('/');
         }, 1500);

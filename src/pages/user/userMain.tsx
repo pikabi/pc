@@ -56,7 +56,7 @@ export default function UserMain() {
   useEffect(() => {
     const modifyData = async () => {
       try {
-        const response = await fetch('http://localhost:5000/user/update', {
+        const response = await fetch('http://47.115.211.226:5000/user/update', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ id, userName, userEmail, userPhone, userCountry, userAddress})

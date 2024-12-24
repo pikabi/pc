@@ -14,7 +14,7 @@ const ProductItem = ({ product, index, productLength, products, setProducts, sta
 
   const handleDeleteScale = async (userID: number, productId: number) => {
     try {
-      const response = await fetch('http://localhost:5000/scale/delete', {
+      const response = await fetch('http://47.115.211.226:5000/scale/delete', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ user_id: userID, product_id: productId})

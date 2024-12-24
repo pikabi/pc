@@ -9,7 +9,28 @@ import ProductCss from './css/product.module.css';
 import EruteShoppingIcon from '../img/erute-shopping-icon.png';
 import { Heart, Scale, Star} from 'lucide-react';
 import { useLoginContext } from '../AppContext.tsx';
+import { Line } from 'react-chartjs-2';
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend
+} from 'chart.js';
 declare const require: any;
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 interface Product {
   id: number;
@@ -70,6 +91,8 @@ const Product: React.FC = () => {
   const [attributeClick3, setAttributeClick3] = useState<number>(-1);
   const [attributeClick4, setAttributeClick4] = useState<number>(-1);
   const [historyClick, setHistoryClick] = useState<boolean>(false);
+  const [historyDate, setHistoryDate] = useState<string[]>([]);
+  const [historyPrice, setHistoryPrice] = useState<number[]>([]);
   const product_id = searchParams.get('id');
   const {isLogged, id} = useLoginContext();
   const navigate = useNavigate();
@@ -78,7 +101,7 @@ const Product: React.FC = () => {
 
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/product/detail?id=${id}&product_id=${product_id}`,{
+        const response = await fetch(`http://47.115.211.226:5000/product/detail?id=${id}&product_id=${product_id}`,{
           method: 'GET',
           headers: { 'Content-Type': 'application/json' },
         });
@@ -204,7 +227,7 @@ const Product: React.FC = () => {
     if (isLogged) {
       if (isFavourite === true) {
         try {
-          const response = await fetch('http://localhost:5000/favourite/delete', {
+          const response = await fetch('http://47.115.211.226:5000/favourite/delete', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ user_id: userId, product_id: productId})
@@ -223,7 +246,7 @@ const Product: React.FC = () => {
       }
       else {
         try {
-          const response = await fetch('http://localhost:5000/favourite/insert', {
+          const response = await fetch('http://47.115.211.226:5000/favourite/insert', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ user_id: userId, product_id: productId})
@@ -249,7 +272,7 @@ const Product: React.FC = () => {
     if (isLogged) {
       if (inScale === true) {
         try {
-          const response = await fetch('http://localhost:5000/scale/delete', {
+          const response = await fetch('http://47.115.211.226:5000/scale/delete', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ user_id: userId, product_id: productId})
@@ -268,7 +291,7 @@ const Product: React.FC = () => {
       }
       else {
         try {
-          const response = await fetch('http://localhost:5000/scale/insert', {
+          const response = await fetch('http://47.115.211.226:5000/scale/insert', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ user_id: userId, product_id: productId})
@@ -316,6 +339,75 @@ const Product: React.FC = () => {
       </div>
     )
   }
+
+  const HistoricalPriceChart = () => {
+    const data = {
+        labels: historyDate,
+        datasets: [
+            {
+                label: '价格（元）',
+                data: historyPrice,
+                borderColor: 'rgba(75, 192, 192, 1)',
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                // tension: 0.4,
+            },
+        ],
+    };
+
+    const options = {
+        responsive: true,
+        plugins: {
+            legend: {
+                display: true,
+                position: 'top',
+            },
+            title: {
+                display: true,
+                text: '历史价格走势图',
+            },
+        },
+        scales: {
+            x: {
+                title: {
+                    display: true,
+                    text: '日期',
+                },
+            },
+            y: {
+                title: {
+                    display: true,
+                    text: '价格（元）',
+                },
+                beginAtZero: false,
+            },
+        },
+    };
+
+    return <Line data={data} options={options} />;
+  };
+
+  const handleHistory = async () => {
+    setHistoryClick(!historyClick);
+    if (historyClick === false) {
+      try {
+        const response = await fetch(`http://47.115.211.226:5000/product/history?id=${product.id}`, {
+          method: 'GET',
+          headers: { 'Content-Type': 'application/json' },
+        });
+        if (response.ok) {
+          let data = await response.json();
+          setHistoryDate(data.date);
+          setHistoryPrice(data.price);
+        } else {
+          console.error('请求失败');
+          const data = await response.json();
+          alert(data.message || '请求失败');
+        }
+      } catch (error) {
+        console.error('发生错误:', error);
+      }
+    }
+  };
 
   return (
     <div className={ProductCss.container}>
@@ -487,7 +579,7 @@ const Product: React.FC = () => {
               <button className={ProductCss.clickLinkButton}>
                 <a href={product.url} target="_blank" className={ProductCss.link}>点击购买</a>
               </button>
-              <button className={ProductCss.clickLinkButton2} onClick={()=>setHistoryClick(!historyClick)}>
+              <button className={ProductCss.clickLinkButton2} onClick={()=>handleHistory()}>
                 历史价格
               </button>
           </div>
@@ -495,7 +587,7 @@ const Product: React.FC = () => {
       </div>
       {historyClick == true &&
       <div className={ProductCss.historyContainer}>
-          历史记录          
+          <HistoricalPriceChart />
       </div>
       }
     </div>

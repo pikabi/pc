@@ -81,7 +81,7 @@ const Scale: React.FC = () => {
     const fetchData = async () => {
       try {
         console.log(id);
-        const response = await fetch(`http://localhost:5000/scale?id=${id}`,{
+        const response = await fetch(`http://47.115.211.226:5000/scale?id=${id}`,{
           method: 'GET',
           headers: { 'Content-Type': 'application/json' },
         });
